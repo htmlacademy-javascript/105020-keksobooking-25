@@ -14,6 +14,7 @@ const getRandomNumber = (min, max) => {
   try {
     checkNumber(min, max);
   } catch (err) {
+    // eslint-disable-next-line
     console.log(err);
   }
 
@@ -24,6 +25,7 @@ const getRandomFloating = (min, max, afterPoint) => {
   try {
     checkNumber(min, max);
   } catch (err) {
+    // eslint-disable-next-line
     console.log(err);
   }
 
