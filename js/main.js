@@ -11,13 +11,21 @@ const checkNumber = (min, max) => {
 const getRandomNumber = (min, max) => {
   min = Math.ceil(min);
   max = Math.floor(max);
-  checkNumber(min, max);
+  try {
+    checkNumber(min, max);
+  } catch (err) {
+    console.log(err);
+  }
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 const getRandomFloating = (min, max, afterPoint) => {
-  checkNumber(min, max);
+  try {
+    checkNumber(min, max);
+  } catch (err) {
+    console.log(err);
+  }
 
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
   return +result.toFixed(afterPoint);
