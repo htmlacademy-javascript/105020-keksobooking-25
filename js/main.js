@@ -16,12 +16,12 @@ const getRandomNumber = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const getRandomFloating = (min, max) => {
+const getRandomFloating = (min, max, afterPoint) => {
   checkNumber(min, max);
 
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
-  return +result.toFixed(1);
+  return +result.toFixed(afterPoint);
 };
 
 getRandomNumber(1, 6);
-getRandomFloating(1.5, 6.5);
+getRandomFloating(1.5, 6.5, 1);
