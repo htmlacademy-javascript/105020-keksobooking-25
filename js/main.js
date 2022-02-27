@@ -1,37 +1,39 @@
-const checkNumber = (min, max) => {
-  if (Math.sign(min) === -1 || Math.sign(max) === -1) {
+const checkNumber = (a, b) => {
+  if (Math.sign(a) === -1 || Math.sign(b) === -1) {
     throw new Error('Negative number is not allowed');
   }
 
-  if (min >= max) {
-    throw new Error('The minimum number is greater than or equal to the maximum number');
+  if (a === b) {
+    throw new Error('The numbers are equal');
   }
 };
 
-const getRandomNumber = (min, max) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
+const getRandomPositiveInteger = (a, b) => {
   try {
-    checkNumber(min, max);
+    checkNumber(a, b);
   } catch (err) {
     // eslint-disable-next-line
     console.log(err);
   }
+  const min = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (max - min + 1) + min;
 
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return Math.floor(result);
 };
 
-const getRandomFloating = (min, max, afterPoint) => {
+function getRandomPositiveFloat (a, b, digits = 1) {
   try {
-    checkNumber(min, max);
+    checkNumber(a, b);
   } catch (err) {
     // eslint-disable-next-line
     console.log(err);
   }
+  const min = Math.min(Math.abs(a), Math.abs(b));
+  const max = Math.max(Math.abs(a), Math.abs(b));
+  const result = Math.random() * (max - min) + min;
+  return +result.toFixed(digits);
+}
 
-  const result = Math.floor(Math.random() * (max - min + 1)) + min;
-  return +result.toFixed(afterPoint);
-};
-
-getRandomNumber(1, 6);
-getRandomFloating(1.5, 6.5, 1);
+getRandomPositiveInteger(6, 1);
+getRandomPositiveFloat(1.1, 6.1, 1);
