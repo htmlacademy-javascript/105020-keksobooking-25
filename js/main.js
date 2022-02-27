@@ -49,27 +49,28 @@ getRandomPositiveFloat(1.1, 6.1, 1);
 zeroBeforeNumber(1);
 
 /*
+
 Функции для создания массива из
 TODO[ X ] 10 сгенерированных JS-объектов.
+
 Структура каждого объекта должна быть следующей:
-
 TODO[  ] author, объект — описывает автора. Содержит одно поле: avatar, строка — адрес изображения вида img/avatars/user{{xx}}.png, где {{xx}} — это число от 1 до 10.
-TODO[ X ] Перед однозначными числами ставится 0. Например, 01, 02...10.
+  TODO[ X ] Перед однозначными числами ставится 0. Например, 01, 02...10.
+  TODO[  ] Адреса изображений не повторяются.
 
-TODO[  ] Адреса изображений не повторяются.
 TODO[  ] offer, объект — содержит информацию об объявлении. Состоит из полей:
-TODO[  ] title, строка — заголовок предложения. Придумайте самостоятельно.
-TODO[  ] address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.lat}}, {{location.lng}}.
-TODO[  ] price, число — стоимость. Случайное целое положительное число.
-TODO[  ] type, строка — одно из пяти фиксированных значений: palace, flat, house, bungalow или hotel.
-TODO[  ] rooms, число — количество комнат. Случайное целое положительное число.
-TODO[  ] guests, число — количество гостей, которое можно разместить. Случайное целое положительное число.
-TODO[  ] checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-TODO[  ] checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-TODO[  ] features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner. Значения не должны повторяться.
-TODO[  ] description, строка — описание помещения. Придумайте самостоятельно.
-TODO[  ] photos, массив строк — массив случайной длины из значений: https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg.
-TODO[  ] location, объект — местоположение в виде географических координат. Состоит из двух полей:
-TODO[  ] lat, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000.
-TODO[  ] lng, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000.
+  TODO[  ] title, строка — заголовок предложения. Придумайте самостоятельно.
+  TODO[  ] address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.lat}}, {{location.lng}}.
+  TODO[  ] price, число — стоимость. Случайное целое положительное число.
+  TODO[  ] type, строка — одно из пяти фиксированных значений: palace, flat, house, bungalow или hotel.
+  TODO[  ] rooms, число — количество комнат. Случайное целое положительное число.
+  TODO[  ] guests, число — количество гостей, которое можно разместить. Случайное целое положительное число.
+  TODO[  ] checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
+  TODO[  ] checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
+  TODO[  ] features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner. Значения не должны повторяться.
+  TODO[  ] description, строка — описание помещения. Придумайте самостоятельно.
+  TODO[  ] photos, массив строк — массив случайной длины из значений: https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg, https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg.
+  TODO[  ] location, объект — местоположение в виде географических координат. Состоит из двух полей:
+    TODO[  ] lat, число с плавающей точкой — широта, случайное значение от 35.65000 до 35.70000.
+    TODO[  ] lng, число с плавающей точкой — долгота, случайное значение от 139.70000 до 139.80000.
 */
