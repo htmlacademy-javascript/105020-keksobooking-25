@@ -59,11 +59,11 @@ const getArrayRandomInteger = () => {
 
 const createObjectAuthor = () => {
   const arr = getArrayRandomInteger();
-  const getNumber = () => {
+  const getSrc = () => {
     const  result = arr.pop();
     return `img/avatars/user${putZeroBeforeNumber(result)}.png`;
   };
-  const author = Array.from({length: NUMBER_BJECTS}, getNumber);
+  const author = Array.from({length: NUMBER_BJECTS}, getSrc);
   return author;
 };
 
