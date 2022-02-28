@@ -1,7 +1,8 @@
-const NUMBER_BJECTS = 10;
-const POSSIBLE_TIME = ['12:00', '13:00', '14:00'];
-const FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
-const TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const NUMBER_OBJECTS = 10;
+const OFFER_TIME = ['12:00', '13:00', '14:00'];
+const OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+const OFFER_TYPE = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+const OFFER_TITLE = ['Снять домик, который поможет Вам блеснуть в разговоре', 'Как побороть страх, и снять домик в свое удовольствие', 'Бросьте нести чушь! Мы изучили все о вашей Гостинице', 'Ван Дамм одобряет: как мы пробовали изменить Гостиницу', 'Быть или не быть: какая гостиница подойдет именно для вас', 'Что? Где? Почем? Изучаем Гостиницы', 'Гостиницы — ваш злейший враг', 'Один шанс из ста: как заслужить доверие у Гостиницы', 'Как я пробовал отдыхай в гостинице', 'Почему все любят, когда говорят о Гостинице', '13 возможностей Гостиницы, которые раньше многие недооценивали'];
 
 const checkNumber = (a, b) => {
   if (Math.sign(a) === -1 || Math.sign(b) === -1) {
@@ -43,10 +44,10 @@ const putZeroBeforeNumber = (number) => {
   return number.toString();
 };
 
-const getArrayRandomInteger = () => {
+const getArrayRandomInteger = (size = NUMBER_OBJECTS) => {
   const arr = new Array();
   const result = new Array();
-  for (let i = NUMBER_BJECTS; i > 0; i--) {
+  for (let i = size; i > 0; i--) {
     arr.unshift(i);
   }
   while (arr.length > 0) {
@@ -64,31 +65,50 @@ const createObjectAuthors = () => {
     const zeroNumber = putZeroBeforeNumber(number);
     const author = new Object();
     author.avatar = `img/avatars/user${zeroNumber}.png`;
-
-    // return {avatar: `img/avatars/user${putZeroBeforeNumber(result)}.png`};
     return author;
   };
-  const authors = Array.from({length: NUMBER_BJECTS}, getObject);
+  const authors = Array.from({length: NUMBER_OBJECTS}, getObject);
   return authors;
 };
 
+const createObjectOffers = () => {
+  const arrTitle = getArrayRandomInteger();
+  const getObject = () => {
+    const offer = new Object();
+    const numberTitle = arrTitle.pop();
+    offer.title = OFFER_TITLE[numberTitle];
+    offer.price = getRandomPositiveInteger(8500, 35000);
+    offer.type = OFFER_TYPE[getRandomPositiveInteger(0, OFFER_TYPE.length - 1)];
+    offer.rooms = getRandomPositiveInteger(1, 5);
+    offer.guests = getRandomPositiveInteger(1, 12);
+    offer.checkin = OFFER_TIME[getRandomPositiveInteger(0, OFFER_TIME.length - 1)];
+    offer.checkout = OFFER_TIME[getRandomPositiveInteger(0, OFFER_TIME.length - 1)];
+    return offer;
+  };
+  const offers = Array.from({length: NUMBER_OBJECTS}, getObject);
+  return offers;
+};
 
 
 {
   getRandomPositiveFloat(1.1, 6.1, 1);
-  console.log(createObjectAuthors());
+  createObjectAuthors();
+  createObjectOffers();
 }
+console.log(createObjectAuthors());
+console.log(createObjectOffers());
+
 /*
 TODO[  ] offer, объект — содержит информацию об объявлении. Состоит из полей:
-  TODO[  ] title, строка — заголовок предложения. Придумайте самостоятельно.
-  TODO[  ] address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.lat}}, {{location.lng}}.
-  TODO[  ] price, число — стоимость. Случайное целое положительное число.
-  TODO[  ] type, строка — одно из пяти фиксированных значений: palace, flat, house, bungalow или hotel.
+  TODO[ X ] title, строка — заголовок предложения. Придумайте самостоятельно.
     TODO[ X ] Создать массив.
-  TODO[  ] rooms, число — количество комнат. Случайное целое положительное число.
-  TODO[  ] guests, число — количество гостей, которое можно разместить. Случайное целое положительное число.
-  TODO[  ] checkin, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
-  TODO[  ] checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
+  TODO[  ] address, строка — адрес предложения. Для простоты пусть пока составляется из географических координат по маске {{location.lat}}, {{location.lng}}.
+  TODO[ X ] price, число — стоимость. Случайное целое положительное число.
+  TODO[ X ] type, строка — одно из пяти фиксированных значений: palace, flat, house, bungalow или hotel.
+    TODO[ X ] Создать массив.
+  TODO[ X ] rooms, число — количество комнат. Случайное целое положительное число.
+  TODO[ X ] guests, число — количество гостей, которое можно разместить. Случайное целое положительное число.
+  TODO[ X ] checkout, строка — одно из трёх фиксированных значений: 12:00, 13:00 или 14:00.
     TODO[ X ] Создать массив.
   TODO[  ] features, массив строк — массив случайной длины из значений: wifi, dishwasher, parking, washer, elevator, conditioner. Значения не должны повторяться.
     TODO[ X ] Создать массив.
