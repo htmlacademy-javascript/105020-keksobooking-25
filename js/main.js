@@ -44,8 +44,8 @@ const putZeroBeforeNumber = (number) => {
 };
 
 const getArrayRandomInteger = () => {
-  const arr = [];
-  const result = [];
+  const arr = new Array();
+  const result = new Array();
   for (let i = NUMBER_BJECTS; i > 0; i--) {
     arr.unshift(i);
   }
@@ -57,19 +57,26 @@ const getArrayRandomInteger = () => {
   return result;
 };
 
-const createObjectAuthor = () => {
+const createObjectAuthors = () => {
   const arr = getArrayRandomInteger();
-  const getSrc = () => {
-    const  result = arr.pop();
-    return `img/avatars/user${putZeroBeforeNumber(result)}.png`;
+  const getObject = () => {
+    const number = arr.pop();
+    const zeroNumber = putZeroBeforeNumber(number);
+    const author = new Object();
+    author.avatar = `img/avatars/user${zeroNumber}.png`;
+
+    // return {avatar: `img/avatars/user${putZeroBeforeNumber(result)}.png`};
+    return author;
   };
-  const author = Array.from({length: NUMBER_BJECTS}, getSrc);
-  return author;
+  const authors = Array.from({length: NUMBER_BJECTS}, getObject);
+  return authors;
 };
+
+
 
 {
   getRandomPositiveFloat(1.1, 6.1, 1);
-  createObjectAuthor();
+  console.log(createObjectAuthors());
 }
 /*
 TODO[  ] offer, объект — содержит информацию об объявлении. Состоит из полей:
