@@ -120,6 +120,3 @@ const createObjectOffers = () => {
 
 createObjectAuthors();
 createObjectOffers();
-
-console.log(createObjectAuthors());
-console.log(createObjectOffers());
