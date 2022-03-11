@@ -63,10 +63,36 @@ const getArrayRandomInteger = (size) => {
   return result;
 };
 
+const getOfferPriceTemplate = (price) => {
+  const result = `${price} <span>₽/ночь</span>`;
+  return result;
+};
+
+const getOfferType = (type) => {
+  type.toString();
+  if (type === 'flat') {
+    return 'Квартира';
+  }
+  if (type === 'bungalow') {
+    return 'Бунгало';
+  }
+  if (type === 'house') {
+    return 'Дом';
+  }
+  if (type === 'palace') {
+    return 'Дворец';
+  }
+  if (type === 'hotel') {
+    return 'Отель';
+  }
+};
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
   putZeroBeforeNumber,
   copyMixArrayRandomSize,
   getArrayRandomInteger,
+  getOfferPriceTemplate,
+  getOfferType,
 };

@@ -3,34 +3,40 @@ import {
   createObjectOffers,
 } from './data.js';
 
-const authors = createObjectAuthors();
-const offers = createObjectOffers();
-const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-const mapCanvas = document.querySelector('#map-canvas');
-
-const cardElement = cardTemplate.cloneNode(true);
+import {
+  getOfferPriceTemplate,
+  getOfferType,
+} from './util.js';
 
 const adsGeneration = () => {
+  const getAuthors = createObjectAuthors();
+  const getOffers = createObjectOffers();
+  const offers = getOffers.map((item, index) => ({...item, ...getAuthors[index]}));
 
+  const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
+  const mapCanvas = document.querySelector('#map-canvas');
+
+  const cardFragment = document.createDocumentFragment();
+
+  offers.forEach(({title, address, price, type}) => {
+    const cardElement = cardTemplate.cloneNode(true);
+
+    cardElement.querySelector('.popup__title').textContent = title;
+    cardElement.querySelector('.popup__text--address').textContent = address;
+    cardElement.querySelector('.popup__text--price').innerHTML = getOfferPriceTemplate(price);
+    cardElement.querySelector('.popup__type').innerHTML = getOfferType(type);
+    cardFragment.appendChild(cardElement);
+  });
+
+  mapCanvas.appendChild(cardFragment);
+
+  // console.log(offers);
 };
-
-console.log(mapCanvas);
 
 export { adsGeneration };
 
 
 /**
-TODO Выведите заголовок объявления offer.title в заголовок .popup__title.
-TODO Выведите адрес offer.address в блок .popup__text--address.
-TODO Выведите цену offer.price в блок .popup__text--price строкой вида {{offer.price}} ₽/ночь. Например, «5200 ₽/ночь».
-TODO В блок .popup__type выведите тип жилья offer.type, сопоставив с подписями:
-
-Квартира для flat
-Бунгало для bungalow
-Дом для house
-Дворец для palace
-Отель для hotel
-
 TODO Выведите количество гостей и комнат offer.rooms и offer.guests в блок .popup__text--capacity строкой вида {{offer.rooms}} комнаты для {{offer.guests}} гостей. Например, «2 комнаты для 3 гостей».
 TODO  заезда и выезда offer.checkin и offer.checkout в блок .popup__text--time строкой вида Заезд после {{offer.checkin}}, выезд до {{offer.checkout}}. Например, «Заезд после 14:00, выезд до 14:00».
 TODO В список .popup__features выведите все доступные удобства в объявлении.
