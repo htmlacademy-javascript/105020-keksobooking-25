@@ -87,6 +87,46 @@ const getOfferType = (type) => {
   }
 };
 
+const declinationRooms = (rooms) => {
+  if (rooms >= 5) {
+    return 'комнат';
+  }
+  if (rooms >= 2) {
+    return 'комнаты';
+  }
+  return 'комната';
+};
+
+const declinationGuests = (guests) => {
+  if (guests > 1) {
+    return 'гостей';
+  }
+  return 'гостя';
+};
+
+const getOfferСapacity = (rooms, guests) => {
+  const result = `${rooms} ${declinationRooms(rooms)} для ${guests} ${declinationGuests(guests)}`;
+  return result;
+};
+
+const getOfferTime = (checkin, checkout) => {
+  const result = `Заезд после ${checkin}, выезд до ${checkout}`;
+  return result;
+};
+
+const getOfferFeatures = (features) => {
+  //FIXME
+  // const listFragment = document.createDocumentFragment();
+  // features.forEach((feature) => {
+  //   const elem = document.createElement('li');
+  //   elem.classList.add('popup__feature');
+  //   elem.classList.add(`popup__feature--${feature}`);
+  //   listFragment.append(elem);
+  // });
+  // console.log(listFragment);
+  // return listFragment;
+};
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
@@ -95,4 +135,7 @@ export {
   getArrayRandomInteger,
   getOfferPriceTemplate,
   getOfferType,
+  getOfferСapacity,
+  getOfferTime,
+  getOfferFeatures,
 };
