@@ -114,17 +114,39 @@ const getOfferTime = (checkin, checkout) => {
   return result;
 };
 
-const getOfferFeatures = (features) => {
-  //FIXME
-  // const listFragment = document.createDocumentFragment();
-  // features.forEach((feature) => {
-  //   const elem = document.createElement('li');
-  //   elem.classList.add('popup__feature');
-  //   elem.classList.add(`popup__feature--${feature}`);
-  //   listFragment.append(elem);
-  // });
-  // console.log(listFragment);
-  // return listFragment;
+const getOfferFeatures = (list, features) => {
+  const modifiers = features.map((feature) => `${list[0].classList[0]}--${feature}`);
+  list.forEach((listItem) => {
+    const modifier = listItem.classList[1];
+    if (!modifiers.includes(modifier)) {
+      listItem.remove();
+    }
+  });
+};
+
+const getOfferPhotos = (container, photos) => {
+  const fragment = document.createDocumentFragment();
+  photos.forEach((photo) => {
+    const template = container.children[0].cloneNode(true);
+    template.src = photo;
+    fragment.append(template);
+  });
+  container.children[0].remove();
+  container.append(fragment);
+};
+
+const offerSelector = (selector, action, elem, task) => {
+  if (!elem) {
+    return selector.remove();
+  }
+  if (action === 'textContent') {
+    const result = selector.textContent = elem;
+    return result;
+  }
+  if (action === 'innerHTML') {
+    const result = selector.innerHTML = task(elem);
+    return result;
+  }
 };
 
 export {
@@ -138,4 +160,6 @@ export {
   getOfferСapacity,
   getOfferTime,
   getOfferFeatures,
+  getOfferPhotos,
+  offerSelector,
 };
