@@ -105,12 +105,30 @@ const declinationGuests = (guests) => {
 };
 
 const getOfferСapacity = (rooms, guests) => {
-  const result = `${rooms} ${declinationRooms(rooms)} для ${guests} ${declinationGuests(guests)}`;
+  let result;
+  if (!rooms) {
+    result = `Для ${guests} ${declinationGuests(guests)}`;
+    return result;
+  }
+  if (!guests) {
+    result = `${rooms} ${declinationRooms(rooms)}`;
+    return result;
+  }
+  result = `${rooms} ${declinationRooms(rooms)} для ${guests} ${declinationGuests(guests)}`;
   return result;
 };
 
 const getOfferTime = (checkin, checkout) => {
-  const result = `Заезд после ${checkin}, выезд до ${checkout}`;
+  let result;
+  if (!checkin) {
+    result = `Выезд до ${checkout}`;
+    return result;
+  }
+  if (!checkout) {
+    result = `Заезд после ${checkin}`;
+    return result;
+  }
+  result = `Заезд после ${checkin}, выезд до ${checkout}`;
   return result;
 };
 
@@ -135,16 +153,48 @@ const getOfferPhotos = (container, photos) => {
   container.append(fragment);
 };
 
-const offerSelector = (selector, action, elem, task) => {
+const offerSelector = (selector, action, elem, task, selectAll) => {
+  let result;
   if (!elem) {
-    return selector.remove();
+    result = selector.remove();
+    return result;
   }
   if (action === 'textContent') {
-    const result = selector.textContent = elem;
+    if (task) {
+      result = selector.textContent = task(elem);
+      return result;
+    }
+    result = selector.textContent = elem;
     return result;
   }
   if (action === 'innerHTML') {
-    const result = selector.innerHTML = task(elem);
+    result = selector.innerHTML = task(elem);
+    return result;
+  }
+  if (action === 'src') {
+    result = selector.src = elem;
+    return result;
+  }
+  if (action === 'photos') {
+    result = task(selector, elem);
+    return result;
+  }
+  if (action[0] === 'twoElements') {
+    if (!elem[0] && !elem[1]) {
+      result = selector.remove();
+    }
+    const calculate = task(elem[0], elem[1]);
+    if (action[1] === 'innerHTML') {
+      result = selector.innerHTML = calculate;
+      return result;
+    }
+    if (action[1] === 'textContent') {
+      result = selector.textContent = calculate;
+      return result;
+    }
+  }
+  if (action === 'features') {
+    result = task(selectAll, elem);
     return result;
   }
 };

@@ -2,4 +2,4 @@ import {
   adsGeneration,
 } from './ads-generation.js';
 
-adsGeneration();
+adsGeneration(1);
