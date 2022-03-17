@@ -69,21 +69,17 @@ const getOfferPriceTemplate = (price) => {
 };
 
 const getOfferType = (type) => {
-  type.toString();
-  if (type === 'flat') {
-    return 'Квартира';
-  }
-  if (type === 'bungalow') {
-    return 'Бунгало';
-  }
-  if (type === 'house') {
-    return 'Дом';
-  }
-  if (type === 'palace') {
-    return 'Дворец';
-  }
-  if (type === 'hotel') {
-    return 'Отель';
+  switch (type.toString()) {
+    case 'flat':
+      return 'Квартира';
+    case 'bungalow':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
+    case 'palace':
+      return 'Дворец';
+    case 'hotel':
+      return 'Отель';
   }
 };
 
