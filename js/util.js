@@ -83,7 +83,7 @@ const getOfferType = (type) => {
   }
 };
 
-const declinationRooms = (rooms) => {
+const getDeclinationRooms = (rooms) => {
   switch (true) {
     case true === (rooms >= 5):
       return 'комнат';
