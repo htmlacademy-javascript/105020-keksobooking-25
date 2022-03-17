@@ -14,9 +14,9 @@ import {
 } from './util.js';
 
 const adsGeneration = (serialNumber) => {
-  const getAuthors = createObjectAuthors();
-  const getOffers = createObjectOffers();
-  const offers = getOffers.map((item, index) => ({...item, ...getAuthors[index]}));
+  const rawAuthors = createObjectAuthors();
+  const rawOffers = createObjectOffers();
+  const offers = rawOffers.map((item, index) => ({...item, ...rawAuthors[index]}));
   const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
   const mapCanvas = document.querySelector('#map-canvas');
   const cardFragment = document.createDocumentFragment();
