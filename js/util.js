@@ -1,3 +1,19 @@
+const DECLINATION_ROOMS = {
+  MoreFive: 5,
+  MoreTwo: 2,
+};
+
+const OFFER_SELECTOR_ACTION = {
+  TextContent: 'textContent',
+  TextContentTask: 'textContentTask',
+  InnerHtml: 'innerHTML',
+  Src: 'src',
+  Photos: 'photos',
+  Features: 'features',
+  TwoElemInnerHtml: 'twoElemInnerHTML',
+  TwoElemTextContent: 'twoElemTextContent',
+};
+
 const checkNumber = (a, b) => {
   if (Math.sign(a) === -1 || Math.sign(b) === -1) {
     throw new Error('Negative number is not allowed');
@@ -85,46 +101,48 @@ const getOfferType = (type) => {
 
 const getDeclinationRooms = (rooms) => {
   switch (true) {
-    case true === (rooms >= 5):
+    case (rooms >= DECLINATION_ROOMS.MoreFive):
       return 'комнат';
-    case true === (rooms >= 2):
+    case (rooms >= DECLINATION_ROOMS.MoreTwo):
       return 'комнаты';
     default:
       return 'комната';
   }
 };
 
-const declinationGuests = (guests) => {
+const getDeclinationGuests = (guests) => {
   const result =  guests > 1 ? 'гостей' : 'гостя';
   return result;
 };
 
 const getOfferСapacity = (rooms, guests) => {
   let result;
-  if (!rooms) {
-    result = `Для ${guests} ${declinationGuests(guests)}`;
-    return result;
+  switch (true) {
+    case (!rooms):
+      result = `Для ${guests} ${getDeclinationGuests(guests)}`;
+      return result;
+    case (!guests):
+      result = `${rooms} ${getDeclinationRooms(rooms)}`;
+      return result;
+    default:
+      result = `${rooms} ${getDeclinationRooms(rooms)} для ${guests} ${getDeclinationGuests(guests)}`;
+      return result;
   }
-  if (!guests) {
-    result = `${rooms} ${declinationRooms(rooms)}`;
-    return result;
-  }
-  result = `${rooms} ${declinationRooms(rooms)} для ${guests} ${declinationGuests(guests)}`;
-  return result;
 };
 
 const getOfferTime = (checkin, checkout) => {
   let result;
-  if (!checkin) {
-    result = `Выезд до ${checkout}`;
-    return result;
+  switch (true) {
+    case (!checkin):
+      result = `Выезд до ${checkout}`;
+      return result;
+    case (!checkout):
+      result = `Заезд после ${checkin}`;
+      return result;
+    default:
+      result = `Заезд после ${checkin}, выезд до ${checkout}`;
+      return result;
   }
-  if (!checkout) {
-    result = `Заезд после ${checkin}`;
-    return result;
-  }
-  result = `Заезд после ${checkin}, выезд до ${checkout}`;
-  return result;
 };
 
 const getOfferFeatures = (list, features) => {
@@ -149,48 +167,37 @@ const getOfferPhotos = (container, photos) => {
 };
 
 const offerSelector = (selector, action, elem, task, selectAll) => {
+  const {TextContent, TextContentTask, InnerHtml, Src, Photos, Features, TwoElemInnerHtml, TwoElemTextContent} = OFFER_SELECTOR_ACTION;
   let result;
   if (!elem) {
     result = selector.remove();
     return result;
   }
-  if (action === 'textContent') {
-    if (task) {
+  switch (action) {
+    case TextContent:
+      result = selector.textContent = elem;
+      return result;
+    case TextContentTask:
       result = selector.textContent = task(elem);
       return result;
-    }
-    result = selector.textContent = elem;
-    return result;
-  }
-  if (action === 'innerHTML') {
-    result = selector.innerHTML = task(elem);
-    return result;
-  }
-  if (action === 'src') {
-    result = selector.src = elem;
-    return result;
-  }
-  if (action === 'photos') {
-    result = task(selector, elem);
-    return result;
-  }
-  if (action[0] === 'twoElements') {
-    if (!elem[0] && !elem[1]) {
-      result = selector.remove();
-    }
-    const calculate = task(elem[0], elem[1]);
-    if (action[1] === 'innerHTML') {
-      result = selector.innerHTML = calculate;
+    case InnerHtml:
+      result = selector.innerHTML = task(elem);
       return result;
-    }
-    if (action[1] === 'textContent') {
-      result = selector.textContent = calculate;
+    case Src:
+      result = selector.src = elem;
       return result;
-    }
-  }
-  if (action === 'features') {
-    result = task(selectAll, elem);
-    return result;
+    case Photos:
+      result = task(selector, elem);
+      return result;
+    case Features:
+      result = task(selectAll, elem);
+      return result;
+    case TwoElemInnerHtml:
+      result = selector.innerHTML = task(...elem);
+      return result;
+    case TwoElemTextContent:
+      result = selector.textContent = task(...elem);
+      return result;
   }
 };
 

@@ -29,11 +29,11 @@ const adsGeneration = (serialNumber) => {
   offerSelector(select('.popup__description'), 'textContent', description);
   offerSelector(select('.popup__text--address'), 'textContent', address);
   offerSelector(select('.popup__text--price'), 'innerHTML', price, getOfferPriceTemplate);
-  offerSelector(select('.popup__type'), 'textContent', type, getOfferType);
+  offerSelector(select('.popup__type'), 'textContentTask', type, getOfferType);
   offerSelector(select('.popup__avatar'), 'src', avatar, getOfferType);
   offerSelector(select('.popup__photos'), 'photos', photos, getOfferPhotos);
-  offerSelector(select('.popup__text--capacity'), ['twoElements', 'innerHTML'], [rooms, guests], getOfferСapacity);
-  offerSelector(select('.popup__text--time'), ['twoElements', 'textContent'], [checkin, checkout], getOfferTime);
+  offerSelector(select('.popup__text--capacity'), 'twoElemInnerHTML', [rooms, guests], getOfferСapacity);
+  offerSelector(select('.popup__text--time'), 'twoElemTextContent', [checkin, checkout], getOfferTime);
   offerSelector(select('.popup__features'), 'features', features, getOfferFeatures, selectAll('.popup__feature'));
   cardFragment.appendChild(cardElement);
   return mapCanvas.appendChild(cardFragment);
