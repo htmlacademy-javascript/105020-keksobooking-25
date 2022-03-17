@@ -84,20 +84,19 @@ const getOfferType = (type) => {
 };
 
 const declinationRooms = (rooms) => {
-  if (rooms >= 5) {
-    return 'комнат';
+  switch (true) {
+    case true === (rooms >= 5):
+      return 'комнат';
+    case true === (rooms >= 2):
+      return 'комнаты';
+    default:
+      return 'комната';
   }
-  if (rooms >= 2) {
-    return 'комнаты';
-  }
-  return 'комната';
 };
 
 const declinationGuests = (guests) => {
-  if (guests > 1) {
-    return 'гостей';
-  }
-  return 'гостя';
+  const result =  guests > 1 ? 'гостей' : 'гостя';
+  return result;
 };
 
 const getOfferСapacity = (rooms, guests) => {
