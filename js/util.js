@@ -1,3 +1,19 @@
+const DECLINATION_ROOMS = {
+  MoreFive: 5,
+  MoreTwo: 2,
+};
+
+const OFFER_SELECTOR_ACTION = {
+  TextContent: 'textContent',
+  TextContentTask: 'textContentTask',
+  InnerHtml: 'innerHTML',
+  Src: 'src',
+  Photos: 'photos',
+  Features: 'features',
+  TwoElemInnerHtml: 'twoElemInnerHTML',
+  TwoElemTextContent: 'twoElemTextContent',
+};
+
 const checkNumber = (a, b) => {
   if (Math.sign(a) === -1 || Math.sign(b) === -1) {
     throw new Error('Negative number is not allowed');
@@ -63,10 +79,139 @@ const getArrayRandomInteger = (size) => {
   return result;
 };
 
+const getOfferPriceTemplate = (price) => {
+  const result = `${price} <span>₽/ночь</span>`;
+  return result;
+};
+
+const getOfferType = (type) => {
+  switch (type.toString()) {
+    case 'flat':
+      return 'Квартира';
+    case 'bungalow':
+      return 'Бунгало';
+    case 'house':
+      return 'Дом';
+    case 'palace':
+      return 'Дворец';
+    case 'hotel':
+      return 'Отель';
+  }
+};
+
+const getDeclinationRooms = (rooms) => {
+  switch (true) {
+    case (rooms >= DECLINATION_ROOMS.MoreFive):
+      return 'комнат';
+    case (rooms >= DECLINATION_ROOMS.MoreTwo):
+      return 'комнаты';
+    default:
+      return 'комната';
+  }
+};
+
+const getDeclinationGuests = (guests) => {
+  const result =  guests > 1 ? 'гостей' : 'гостя';
+  return result;
+};
+
+const getOfferСapacity = (rooms, guests) => {
+  let result;
+  switch (true) {
+    case (!rooms):
+      result = `Для ${guests} ${getDeclinationGuests(guests)}`;
+      return result;
+    case (!guests):
+      result = `${rooms} ${getDeclinationRooms(rooms)}`;
+      return result;
+    default:
+      result = `${rooms} ${getDeclinationRooms(rooms)} для ${guests} ${getDeclinationGuests(guests)}`;
+      return result;
+  }
+};
+
+const getOfferTime = (checkin, checkout) => {
+  let result;
+  switch (true) {
+    case (!checkin):
+      result = `Выезд до ${checkout}`;
+      return result;
+    case (!checkout):
+      result = `Заезд после ${checkin}`;
+      return result;
+    default:
+      result = `Заезд после ${checkin}, выезд до ${checkout}`;
+      return result;
+  }
+};
+
+const getOfferFeatures = (list, features) => {
+  const modifiers = features.map((feature) => `${list[0].classList[0]}--${feature}`);
+  list.forEach((listItem) => {
+    const modifier = listItem.classList[1];
+    if (!modifiers.includes(modifier)) {
+      listItem.remove();
+    }
+  });
+};
+
+const getOfferPhotos = (container, photos) => {
+  const fragment = document.createDocumentFragment();
+  photos.forEach((photo) => {
+    const template = container.children[0].cloneNode(true);
+    template.src = photo;
+    fragment.append(template);
+  });
+  container.children[0].remove();
+  container.append(fragment);
+};
+
+const offerSelector = (selector, action, elem, task, selectAll) => {
+  const {TextContent, TextContentTask, InnerHtml, Src, Photos, Features, TwoElemInnerHtml, TwoElemTextContent} = OFFER_SELECTOR_ACTION;
+  let result;
+  if (!elem) {
+    result = selector.remove();
+    return result;
+  }
+  switch (action) {
+    case TextContent:
+      result = selector.textContent = elem;
+      return result;
+    case TextContentTask:
+      result = selector.textContent = task(elem);
+      return result;
+    case InnerHtml:
+      result = selector.innerHTML = task(elem);
+      return result;
+    case Src:
+      result = selector.src = elem;
+      return result;
+    case Photos:
+      result = task(selector, elem);
+      return result;
+    case Features:
+      result = task(selectAll, elem);
+      return result;
+    case TwoElemInnerHtml:
+      result = selector.innerHTML = task(...elem);
+      return result;
+    case TwoElemTextContent:
+      result = selector.textContent = task(...elem);
+      return result;
+  }
+};
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
   putZeroBeforeNumber,
   copyMixArrayRandomSize,
   getArrayRandomInteger,
+  getOfferPriceTemplate,
+  getOfferType,
+  getOfferСapacity,
+  getOfferTime,
+  getOfferFeatures,
+  getOfferPhotos,
+  offerSelector,
 };

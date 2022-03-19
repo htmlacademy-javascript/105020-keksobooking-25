@@ -1,7 +1,5 @@
 import {
-  createObjectAuthors,
-  createObjectOffers,
-} from './data.js';
+  adsGeneration,
+} from './ads-generation.js';
 
-createObjectAuthors();
-createObjectOffers();
+adsGeneration(1);
