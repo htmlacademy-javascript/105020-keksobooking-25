@@ -30,7 +30,7 @@ const adsGeneration = (serialNumber) => {
   offerSelector(select('.popup__text--address'), 'textContent', address);
   offerSelector(select('.popup__text--price'), 'innerHTML', price, getOfferPriceTemplate);
   offerSelector(select('.popup__type'), 'textContentTask', type, getOfferType);
-  offerSelector(select('.popup__avatar'), 'src', avatar, getOfferType);
+  offerSelector(select('.popup__avatar'), 'src', avatar);
   offerSelector(select('.popup__photos'), 'photos', photos, getOfferPhotos);
   offerSelector(select('.popup__text--capacity'), 'twoElemInnerHTML', [rooms, guests], getOfferСapacity);
   offerSelector(select('.popup__text--time'), 'twoElemTextContent', [checkin, checkout], getOfferTime);
