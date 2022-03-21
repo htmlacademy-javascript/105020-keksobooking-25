@@ -1,3 +1,5 @@
+const NEGATIVE_NUM = -1;
+
 const
   DeclinationRooms = {
     MORE_FIVE: 5,
@@ -23,7 +25,7 @@ const housingTypes = {
 };
 
 const checkNumber = (a, b) => {
-  if (Math.sign(a) === -1 || Math.sign(b) === -1) {
+  if (Math.sign(a) === NEGATIVE_NUM || Math.sign(b) === NEGATIVE_NUM) {
     throw new Error('Negative number is not allowed');
   }
 };
@@ -199,6 +201,12 @@ const offerSelector = (selector, action, elem, task, selectAll) => {
   }
 };
 
+const addDdisabled = (...list) => {
+  for (let i = 0; i < list.length; i++){
+    list[i].forEach((elem) => elem.setAttribute('disabled', ''));
+  }
+};
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
@@ -212,4 +220,5 @@ export {
   getOfferFeatures,
   getOfferPhotos,
   offerSelector,
+  addDdisabled,
 };
