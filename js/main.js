@@ -3,8 +3,8 @@ import {
 } from './ads-generation.js';
 
 import {
-  pageStatus,
-} from './page-status.js';
+  enableFormAccessibility,
+} from './form-accessibility.js';
 
-pageStatus(0);
+enableFormAccessibility();
 adsGeneration(1);

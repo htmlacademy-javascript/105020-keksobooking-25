@@ -14,6 +14,10 @@ const
     FEATURES: 'features',
     TWO_ELEM_INNER_HTML: 'twoElemInnerHTML',
     TWO_ELEM_TEXT_CONTENT: 'twoElemTextContent',
+  },
+  AttributesAaction = {
+    ADD: 'add',
+    DEL: 'del'
   };
 
 const housingTypes = {
@@ -200,10 +204,19 @@ const offerSelector = (selector, action, elem, task, selectAll) => {
       return result;
   }
 };
-
-const addDdisabled = (...list) => {
-  for (let i = 0; i < list.length; i++){
-    list[i].forEach((elem) => elem.setAttribute('disabled', ''));
+const changeAttributes = (action, attribute, ...list) => {
+  const {ADD, DEL} = AttributesAaction;
+  switch (action) {
+    case ADD:
+      for (let i = 0; i < list.length; i++){
+        list[i].forEach((elem) => elem.setAttribute(attribute[0], attribute[1]));
+      }
+      break;
+    case DEL:
+      for (let i = 0; i < list.length; i++){
+        list[i].forEach((elem) => elem.removeAttribute(attribute[0]));
+      }
+      break;
   }
 };
 
@@ -220,5 +233,5 @@ export {
   getOfferFeatures,
   getOfferPhotos,
   offerSelector,
-  addDdisabled,
+  changeAttributes,
 };
