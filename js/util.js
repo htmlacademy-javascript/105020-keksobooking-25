@@ -1,21 +1,35 @@
-const DECLINATION_ROOMS = {
-  MoreFive: 5,
-  MoreTwo: 2,
-};
+const NEGATIVE_NUM = -1;
 
-const OFFER_SELECTOR_ACTION = {
-  TextContent: 'textContent',
-  TextContentTask: 'textContentTask',
-  InnerHtml: 'innerHTML',
-  Src: 'src',
-  Photos: 'photos',
-  Features: 'features',
-  TwoElemInnerHtml: 'twoElemInnerHTML',
-  TwoElemTextContent: 'twoElemTextContent',
+const
+  DeclinationRooms = {
+    MORE_FIVE: 5,
+    MORE_TWO: 2,
+  },
+  OfferSelectorAction = {
+    TEXT_CONTENT: 'textContent',
+    TEXT_CONTENT_TASK: 'textContentTask',
+    INNER_HTML: 'innerHTML',
+    SRC: 'src',
+    PHOTOS: 'photos',
+    FEATURES: 'features',
+    TWO_ELEM_INNER_HTML: 'twoElemInnerHTML',
+    TWO_ELEM_TEXT_CONTENT: 'twoElemTextContent',
+  },
+  AttributesAaction = {
+    ADD: 'add',
+    DEL: 'del'
+  };
+
+const housingTypes = {
+  flat: 'Квартира',
+  bungalow: 'Бунгало',
+  house: 'Дом',
+  palace: 'Дворец',
+  hotel: 'Отель',
 };
 
 const checkNumber = (a, b) => {
-  if (Math.sign(a) === -1 || Math.sign(b) === -1) {
+  if (Math.sign(a) === NEGATIVE_NUM || Math.sign(b) === NEGATIVE_NUM) {
     throw new Error('Negative number is not allowed');
   }
 };
@@ -85,25 +99,15 @@ const getOfferPriceTemplate = (price) => {
 };
 
 const getOfferType = (type) => {
-  switch (type.toString()) {
-    case 'flat':
-      return 'Квартира';
-    case 'bungalow':
-      return 'Бунгало';
-    case 'house':
-      return 'Дом';
-    case 'palace':
-      return 'Дворец';
-    case 'hotel':
-      return 'Отель';
-  }
+  const result = housingTypes[type];
+  return result;
 };
 
 const getDeclinationRooms = (rooms) => {
   switch (true) {
-    case (rooms >= DECLINATION_ROOMS.MoreFive):
+    case (rooms >= DeclinationRooms.MORE_FIVE):
       return 'комнат';
-    case (rooms >= DECLINATION_ROOMS.MoreTwo):
+    case (rooms >= DeclinationRooms.MORE_TWO):
       return 'комнаты';
     default:
       return 'комната';
@@ -167,37 +171,52 @@ const getOfferPhotos = (container, photos) => {
 };
 
 const offerSelector = (selector, action, elem, task, selectAll) => {
-  const {TextContent, TextContentTask, InnerHtml, Src, Photos, Features, TwoElemInnerHtml, TwoElemTextContent} = OFFER_SELECTOR_ACTION;
+  const {TEXT_CONTENT, TEXT_CONTENT_TASK, INNER_HTML, SRC, PHOTOS, FEATURES, TWO_ELEM_INNER_HTML, TWO_ELEM_TEXT_CONTENT} = OfferSelectorAction;
   let result;
   if (!elem) {
     result = selector.remove();
     return result;
   }
   switch (action) {
-    case TextContent:
+    case TEXT_CONTENT:
       result = selector.textContent = elem;
       return result;
-    case TextContentTask:
+    case TEXT_CONTENT_TASK:
       result = selector.textContent = task(elem);
       return result;
-    case InnerHtml:
+    case INNER_HTML:
       result = selector.innerHTML = task(elem);
       return result;
-    case Src:
+    case SRC:
       result = selector.src = elem;
       return result;
-    case Photos:
+    case PHOTOS:
       result = task(selector, elem);
       return result;
-    case Features:
+    case FEATURES:
       result = task(selectAll, elem);
       return result;
-    case TwoElemInnerHtml:
+    case TWO_ELEM_INNER_HTML:
       result = selector.innerHTML = task(...elem);
       return result;
-    case TwoElemTextContent:
+    case TWO_ELEM_TEXT_CONTENT:
       result = selector.textContent = task(...elem);
       return result;
+  }
+};
+const changeAttributes = (action, attribute, ...list) => {
+  const {ADD, DEL} = AttributesAaction;
+  switch (action) {
+    case ADD:
+      for (let i = 0; i < list.length; i++){
+        list[i].forEach((elem) => elem.setAttribute(attribute[0], attribute[1]));
+      }
+      break;
+    case DEL:
+      for (let i = 0; i < list.length; i++){
+        list[i].forEach((elem) => elem.removeAttribute(attribute[0]));
+      }
+      break;
   }
 };
 
@@ -214,4 +233,5 @@ export {
   getOfferFeatures,
   getOfferPhotos,
   offerSelector,
+  changeAttributes,
 };
