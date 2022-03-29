@@ -18,6 +18,30 @@ const enableFormAccessibility = () => {
   changeAttributes('del', ['disabled'], adFormFields, mapFiltersFields);
 };
 
+const pristine = new Pristine(adForm, {
+  classTo: 'ad-form__element',
+  errorTextParent: 'ad-form__element',
+  errorTextTag: 'span',
+  errorTextClass: 'ad-form__error-text',
+});
+
+function validateTitle (value) {
+  return value.length >= 30 && value.length <= 100;
+}
+
+pristine.addValidator(
+  adForm.querySelector('#title'),
+  validateTitle,
+  'От 30 до 100 символов'
+);
+
+adForm.addEventListener('submit', (evt) => {
+  const isValid = pristine.validate();
+  if (!isValid) {
+    evt.preventDefault();
+  }
+});
+
 export {
   enableFormAccessibility,
 };

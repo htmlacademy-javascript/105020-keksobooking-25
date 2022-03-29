@@ -407,6 +407,10 @@ fieldset {
   margin-right: 14px;
 }
 
+.ad-form__error-text {
+  color: #ffaa99;
+}
+
 .features legend {
   padding-bottom: 5px;
 }
