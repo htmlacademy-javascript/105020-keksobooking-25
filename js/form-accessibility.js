@@ -28,12 +28,20 @@ const pristine = new Pristine(adForm, {
 function validateTitle (value) {
   return value.length >= 30 && value.length <= 100;
 }
-
 pristine.addValidator(
   adForm.querySelector('#title'),
   validateTitle,
   'От 30 до 100 символов'
 );
+
+const roomNumber = adForm.querySelector('#room_number');
+const capacity = adForm.querySelector('#capacity');
+const amountRoomsCapacity  = {
+  '1 комната': ['для 1 гостя'],
+  '2 комнаты': ['для 2 гостей', 'для 1 гостя'],
+  '3 комнаты': ['для 3 гостей', 'для 2 гостей', 'для 1 гостя'],
+  '100 комнат': ['не для гостей'],
+};
 
 adForm.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
