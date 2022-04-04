@@ -2,6 +2,13 @@ import {
   changeAttributes,
 } from './util.js';
 
+const RoomSelector = {
+  ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»'},
+  TWO: {num: '2', text: '2 комнаты', capacity: '«для 2 гостей» или «для 1 гостя»'},
+  THREE: {num: '3', text: '3 комнаты', capacity: '«для 3 гостей», «для 2 гостей» или «для 1 гостя»'},
+  HUNDRED: {num: '100', text: '100 комнат', capacity: '«не для гостей»'},
+};
+
 const
   adForm = document.querySelector('.ad-form'),
   mapFilters = document.querySelector('.map__filters');
@@ -21,7 +28,7 @@ const enableFormAccessibility = () => {
 const pristine = new Pristine(adForm, {
   classTo: 'ad-form__element',
   errorTextParent: 'ad-form__element',
-  errorTextTag: 'span',
+  errorTextTag: 'div',
   errorTextClass: 'ad-form__error-text',
 });
 
@@ -35,18 +42,63 @@ pristine.addValidator(
 );
 
 const roomNumber = adForm.querySelector('#room_number');
-const capacity = adForm.querySelector('#capacity');
-const amountRoomsCapacity  = {
-  '1 комната': ['для 1 гостя'],
-  '2 комнаты': ['для 2 гостей', 'для 1 гостя'],
-  '3 комнаты': ['для 3 гостей', 'для 2 гостей', 'для 1 гостя'],
-  '100 комнат': ['не для гостей'],
+const roomCapacity = adForm.querySelector('#capacity');
+const roomOptions  = {
+  '1': ['1'],
+  '2': ['2', '1'],
+  '3': ['3', '2', '1'],
+  '100': ['0'],
 };
+
+function validateRoom () {
+  return roomOptions[roomNumber.value].includes(roomCapacity.value);
+}
+
+function getRoomNumberErrorMessage () {
+  const {ONE, TWO, THREE, HUNDRED} = RoomSelector;
+  switch (roomNumber.value) {
+    case ONE.num:
+      return ONE.text;
+    case TWO.num:
+      return TWO.text;
+    case THREE.num:
+      return THREE.text;
+    case HUNDRED.num:
+      return HUNDRED.text;
+  }
+}
+
+function getRoomCapacityErrorMessage () {
+  const {ONE, TWO, THREE, HUNDRED} = RoomSelector;
+  switch (roomNumber.value) {
+    case ONE.num:
+      return ONE.capacity;
+    case TWO.num:
+      return TWO.capacity;
+    case THREE.num:
+      return THREE.capacity;
+    case HUNDRED.num:
+      return HUNDRED.capacity;
+  }
+}
+
+pristine.addValidator(roomNumber, validateRoom, getRoomNumberErrorMessage);
+pristine.addValidator(roomCapacity, validateRoom, getRoomCapacityErrorMessage);
+
+function onRoomChange () {
+  pristine.validate(roomNumber);
+  pristine.validate(roomCapacity);
+}
+
+adForm
+  .querySelectorAll('#room_number, #capacity')
+  .forEach((item) => item.addEventListener('change', onRoomChange));
 
 adForm.addEventListener('submit', (evt) => {
   const isValid = pristine.validate();
   if (!isValid) {
     evt.preventDefault();
+    pristine.validate();
   }
 });
 
