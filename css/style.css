@@ -545,6 +545,10 @@ fieldset {
   padding-top: 10px;
 }
 
+.ad-form__error-text {
+  color: #ffaa99;
+}
+
 .ad-form__photo-container {
   display: -webkit-box;
   display: -ms-flexbox;
