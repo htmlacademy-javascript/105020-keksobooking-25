@@ -220,6 +220,11 @@ const changeAttributes = (action, attribute, ...list) => {
   }
 };
 
+const mapFormfields = (options, main, secondary) => {
+  const result = options[main.value].includes(secondary.value);
+  return result;
+};
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
@@ -234,4 +239,5 @@ export {
   getOfferPhotos,
   offerSelector,
   changeAttributes,
+  mapFormfields,
 };
