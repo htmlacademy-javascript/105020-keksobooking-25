@@ -2,6 +2,9 @@ import {
   changeAttributes,
 } from './util.js';
 
+import {
+} from './nouislider.js';
+
 const RoomSelector = {
   ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»'},
   TWO: {num: '2', text: '2 комнаты', capacity: '«для 2 гостей» или «для 1 гостя»'},
@@ -18,11 +21,13 @@ const
 adForm.classList.add('ad-form--disabled');
 mapFilters.classList.add('map__filters--disabled');
 changeAttributes('add', ['disabled', ''], adFormFields, mapFiltersFields);
-// TODO Слайдер также должен быть заблокирован;
+// TODO Слайдер также должен быть Заблокирован;
+
 const enableFormAccessibility = () => {
   adForm.classList.remove('ad-form--disabled');
   mapFilters.classList.remove('map__filters--disabled');
   changeAttributes('del', ['disabled'], adFormFields, mapFiltersFields);
+  // TODO Слайдер также должен быть Разблокирован;
 };
 
 const pristine = new Pristine(adForm, {
