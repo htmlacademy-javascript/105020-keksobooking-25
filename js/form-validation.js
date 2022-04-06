@@ -2,6 +2,10 @@ import {
   mapFormfields,
 } from './util.js';
 
+import {
+  sliderPriceUpdate,
+} from './slider.js';
+
 const formValidation = () => {
   const
     RoomSelector = {
@@ -154,6 +158,8 @@ const formValidation = () => {
   adForm
     .querySelectorAll('#type, #price')
     .forEach((item) => item.addEventListener('change', onHousingChange));
+
+  sliderPriceUpdate(onHousingChange);
 
   const
     timeIn = adForm.querySelector('#timein'),

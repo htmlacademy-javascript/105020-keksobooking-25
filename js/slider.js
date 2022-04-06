@@ -1,7 +1,7 @@
-const createSlider = () => {
-  const sliderPrice = document.querySelector('.ad-form__slider');
-  const valuePrice = document.querySelector('#price');
+const sliderPrice = document.querySelector('.ad-form__slider');
+const valuePrice = document.querySelector('#price');
 
+const createSlider = () => {
   noUiSlider.create(sliderPrice, {
     range: {
       min: 0,
@@ -20,10 +20,6 @@ const createSlider = () => {
     },
   });
 
-  sliderPrice.noUiSlider.on('update', () => {
-    valuePrice.value = sliderPrice.noUiSlider.get();
-  });
-
   function setValuePrice () {
     sliderPrice.noUiSlider.set(valuePrice.value);
   }
@@ -31,7 +27,14 @@ const createSlider = () => {
   valuePrice.addEventListener('change', setValuePrice);
 };
 
-export {
-  createSlider,
+const sliderPriceUpdate = (callback) => {
+  sliderPrice.noUiSlider.on('update', () => {
+    valuePrice.value = sliderPrice.noUiSlider.get();
+    callback();
+  });
 };
 
+export {
+  createSlider,
+  sliderPriceUpdate,
+};
