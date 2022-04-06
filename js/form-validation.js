@@ -4,7 +4,7 @@ import {
 
 import {
   sliderPriceUpdate,
-} from './slider.js';
+} from './form-slider.js';
 
 const formValidation = () => {
   const

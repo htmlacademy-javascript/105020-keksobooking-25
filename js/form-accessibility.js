@@ -4,7 +4,7 @@ import {
 
 import {
   createSlider,
-} from './slider.js';
+} from './form-slider.js';
 
 import {
   formValidation,
