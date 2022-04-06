@@ -7,7 +7,7 @@ const createSlider = () => {
       min: 0,
       max: Number(valuePrice.max),
     },
-    start: valuePrice.placeholder,
+    start: Number(valuePrice.placeholder),
     step: 1,
     connect: 'lower',
     format: {
@@ -33,6 +33,7 @@ const sliderPriceUpdate = (callback) => {
     callback();
   });
 };
+
 
 export {
   createSlider,
