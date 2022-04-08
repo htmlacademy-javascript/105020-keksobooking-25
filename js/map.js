@@ -112,4 +112,3 @@ const createMarker = (point) => {
 points.forEach((point) => {
   createMarker(point);
 });
-
