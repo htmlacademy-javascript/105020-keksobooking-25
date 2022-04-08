@@ -32,9 +32,8 @@ const createObjectAuthors = () => {
   const getObject = () => {
     const number = arr.pop();
     const zeroNumber = putZeroBeforeNumber(number);
-    const author = new Object();
-    author.avatar = `img/avatars/user${zeroNumber}.png`;
-    return author;
+    const avatar = `img/avatars/user${zeroNumber}.png`;
+    return avatar;
   };
   return Array.from({length: NUMBER_OBJECTS}, getObject);
 };
@@ -42,11 +41,16 @@ const createObjectAuthors = () => {
 const createObjectOffers = () => {
   const arrTitles = getArrayRandomInteger(NUMBER_OBJECTS);
   const arrDescriptions = getArrayRandomInteger(NUMBER_OBJECTS);
+  const arrAuthor = createObjectAuthors();
   const getObject = () => {
+    const data = new Object();
     const offer = new Object();
+    const author = new Object();
+    const location = new Object();
     const numberTitle = arrTitles.pop();
     const numberDescription = arrDescriptions.pop();
-    const location = createObjectLocation();
+    const getLatLng = createObjectLocation();
+    author.avatar = arrAuthor.pop();
     offer.title = OFFER_TITLES[numberTitle];
     offer.description = OFFER_DESCRIPTIONS[numberDescription];
     offer.price = getRandomPositiveInteger(...OFFER_PRICES);
@@ -57,13 +61,17 @@ const createObjectOffers = () => {
     offer.checkout = OFFER_TIMES[getRandomPositiveInteger(0, OFFER_TIMES.length - 1)];
     offer.features = copyMixArrayRandomSize(OFFER_FEATURES);
     offer.photos = copyMixArrayRandomSize(OFFER_PHOTOS);
-    offer.address = `${location.lat}, ${location.lng}`;
-    return offer;
+    offer.address = `${getLatLng.lat}, ${getLatLng.lng}`;
+    location.lat = getLatLng.lat;
+    location.lng = getLatLng.lng;
+    data.author = author;
+    data.offer = offer;
+    data.location = location;
+    return data;
   };
   return Array.from({length: NUMBER_OBJECTS}, getObject);
 };
 
 export {
-  createObjectAuthors,
   createObjectOffers,
 };

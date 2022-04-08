@@ -225,6 +225,11 @@ const mapFormfields = (options, main, secondary) => {
   return result;
 };
 
+const getCoordinateObject = (latVar, lngVar) => {
+  const result = {lat: latVar, lng: lngVar};
+  return result;
+};
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
@@ -240,4 +245,5 @@ export {
   offerSelector,
   changeAttributes,
   mapFormfields,
+  getCoordinateObject,
 };

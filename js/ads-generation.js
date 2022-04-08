@@ -1,9 +1,4 @@
 import {
-  createObjectAuthors,
-  createObjectOffers,
-} from './data.js';
-
-import {
   getOfferPriceTemplate,
   getOfferType,
   getOfferСapacity,
@@ -13,15 +8,11 @@ import {
   offerSelector,
 } from './util.js';
 
-const adsGeneration = (serialNumber) => {
-  const rawAuthors = createObjectAuthors();
-  const rawOffers = createObjectOffers();
-  const offers = rawOffers.map((item, index) => ({...item, ...rawAuthors[index]}));
-  const offer = offers[serialNumber - 1];
-  const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos, avatar} = offer;
+const adsGeneration = (point) => {
+  const offer = point.offer;
+  const avatar = point.author.avatar;
+  const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos} = offer;
   const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
-  const mapCanvas = document.querySelector('#map-canvas');
-  const cardFragment = document.createDocumentFragment();
   const cardElement = cardTemplate.cloneNode(true);
   const select = (elem) => cardElement.querySelector(elem);
   const selectAll = (elem) => cardElement.querySelectorAll(elem);
@@ -35,8 +26,7 @@ const adsGeneration = (serialNumber) => {
   offerSelector(select('.popup__text--capacity'), 'twoElemInnerHTML', [rooms, guests], getOfferСapacity);
   offerSelector(select('.popup__text--time'), 'twoElemTextContent', [checkin, checkout], getOfferTime);
   offerSelector(select('.popup__features'), 'features', features, getOfferFeatures, selectAll('.popup__feature'));
-  cardFragment.appendChild(cardElement);
-  return mapCanvas.appendChild(cardFragment);
+  return cardElement;
 };
 
 export { adsGeneration };
