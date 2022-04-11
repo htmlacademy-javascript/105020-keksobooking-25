@@ -22,12 +22,12 @@ const Tokyo = {
 
 const PinOptions = {
   MAIM_PIN: {
-    url: '../img/main-pin.svg',
+    url: 'img/main-pin.svg',
     size: [52, 52],
     anchor: [26, 53],
   },
   PIN: {
-    url: '../img/pin.svg',
+    url: 'img/pin.svg',
     size: [40, 40],
     anchor: [20, 41],
   },

@@ -20,6 +20,11 @@ const formValidation = () => {
       HOTEL: {price: '3000', type: 'Отель', value: 'hotel', text: 'минимальная цена за ночь 3 000'},
       HOUSE: {price: '5000', type: 'Дом', value: 'house', text: 'минимальная цена 5 000'},
       PALACE: {price: '10000', type: 'Дворец', value: 'palace', text: 'минимальная цена 10 000'},
+    },
+    titleOptions = {
+      MIN: 30,
+      MAX: 100,
+      TEXT: 'От 30 до 100 символов',
     };
 
   const adForm = document.querySelector('.ad-form');
@@ -32,12 +37,13 @@ const formValidation = () => {
   });
 
   function validateTitle (value) {
-    return value.length >= 30 && value.length <= 100;
+    return value.length >= titleOptions.MIN && value.length <= titleOptions.MAX;
   }
+
   pristine.addValidator(
     adForm.querySelector('#title'),
     validateTitle,
-    'От 30 до 100 символов'
+    titleOptions.TEXT,
   );
 
   const
