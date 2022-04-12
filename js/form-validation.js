@@ -1,10 +1,15 @@
 import {
   mapFormfields,
+  blockButton,
 } from './util.js';
 
 import {
   sliderPriceUpdate,
 } from './form-slider.js';
+
+import {
+  sendData,
+} from './api.js';
 
 const
   RoomSelector = {
@@ -41,7 +46,9 @@ const housingOptions = {
   palace: HousingSelector.PALACE.price,
 };
 
-const adForm = document.querySelector('.ad-form');
+const
+  adForm = document.querySelector('.ad-form'),
+  submitButton = document.querySelector('.ad-form__submit');
 
 const
   roomNumber = adForm.querySelector('#room_number'),
@@ -176,13 +183,22 @@ const formValidation = () => {
 
   timeIn.addEventListener('change', onTimeInChange);
   timeOut.addEventListener('change', onTimeOutChange);
-
+  //TODO
   adForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
     const isValid = pristine.validate();
-    if (!isValid) {
-      evt.preventDefault();
-      pristine.validate();
+    pristine.validate();
+    if (isValid) {
+      blockButton(submitButton, true, 'Отправка...');
+      sendData(
+        () => {
+          blockButton(submitButton, false, 'Опубликовать');
+          evt.target.reset();
+        },
+        new FormData(evt.target),
+      );
     }
+
   });
 };
 
