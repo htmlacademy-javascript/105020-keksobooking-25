@@ -7,10 +7,6 @@ import {
 } from './util.js';
 
 import {
-  createObjectOffers,
-} from './data.js';
-
-import {
   adsGeneration,
 } from './ads-generation.js';
 
@@ -88,8 +84,6 @@ resetButton.addEventListener('click', () => {
     Tokyo.SCALE);
 });
 
-const points = createObjectOffers();
-
 const markerGroup = L.layerGroup().addTo(map);
 
 const createMarker = (point) => {
@@ -109,6 +103,13 @@ const createMarker = (point) => {
     .bindPopup(adsGeneration(point));
 };
 
-points.forEach((point) => {
-  createMarker(point);
-});
+
+const addMarkersMap = (data) => {
+  data.forEach((point) => {
+    createMarker(point);
+  });
+};
+
+export {
+  addMarkersMap,
+};
