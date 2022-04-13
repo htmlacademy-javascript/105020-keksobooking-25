@@ -240,6 +240,12 @@ const getCoordinateObject = (city) => {
   return result;
 };
 
+const getStringCoordinates = (city) => {
+  const coordinatesObject = getCoordinateObject(city);
+  const result = `${coordinatesObject.lat}, ${coordinatesObject.lng}`;
+  return result;
+};
+
 const getСitiesScale = (city) => {
   const result = Cities[city].scale;
   return result;
@@ -302,4 +308,5 @@ export {
   blockButton,
   getСitiesScale,
   resetMap,
+  getStringCoordinates,
 };
