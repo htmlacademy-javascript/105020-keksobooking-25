@@ -11,6 +11,10 @@ import {
   sendData,
 } from './api.js';
 
+import {
+  showAlert,
+} from './util.js';
+
 const
   RoomSelector = {
     ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»', array: ['1']},
@@ -183,22 +187,26 @@ const formValidation = () => {
 
   timeIn.addEventListener('change', onTimeInChange);
   timeOut.addEventListener('change', onTimeOutChange);
-  //TODO
+
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
-    const isValid = pristine.validate();
     pristine.validate();
+    const isValid = pristine.validate();
     if (isValid) {
       blockButton(submitButton, true, 'Отправка...');
       sendData(
         () => {
-          blockButton(submitButton, false, 'Опубликовать');
           evt.target.reset();
+        },
+        () => {
+          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+        },
+        () => {
+          blockButton(submitButton, false, 'Опубликовать');
         },
         new FormData(evt.target),
       );
     }
-
   });
 };
 

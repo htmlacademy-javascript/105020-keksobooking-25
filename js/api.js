@@ -11,9 +11,9 @@ const getData = (onSuccess) => {
     .catch((error) => showAlert(error));
 };
 
-const sendData = (onSuccess, body) => {
+const sendData = (onSuccess, onFail, onEnd, body) => {
   fetch(
-    'https://25.javascript.pages.academy/keksobookin',
+    'https://25.javascript.pages.academy/keksobooking',
     {
       method: 'POST',
       body,
@@ -23,11 +23,13 @@ const sendData = (onSuccess, body) => {
       if (response.ok) {
         onSuccess();
       } else {
-        showAlert('Не удалось отправить форму');
-        //TODO
+        onFail();
       }
     })
-    .catch((error) => showAlert(error));
+    .catch((error) => showAlert(error))
+    .finally(() => {
+      onEnd();
+    });
 };
 
 export {
