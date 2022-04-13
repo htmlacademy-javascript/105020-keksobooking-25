@@ -106,4 +106,5 @@ const addMarkersMap = (data) => {
 
 export {
   addMarkersMap,
+  resetTokyoMap,
 };

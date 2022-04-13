@@ -184,7 +184,9 @@ const formValidation = () => {
 
   timeIn.addEventListener('change', onTimeInChange);
   timeOut.addEventListener('change', onTimeOutChange);
+};
 
+const setUserFormSubmit = (resetMap) => {
   adForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     pristine.validate();
@@ -194,9 +196,11 @@ const formValidation = () => {
       sendData(
         () => {
           evt.target.reset();
+          resetMap();
+          showAlert('Форма успешно отправлена', 'green');
         },
         () => {
-          showAlert('Не удалось отправить форму. Попробуйте ещё раз');
+          showAlert('Не удалось отправить форму');
         },
         () => {
           blockButton(submitButton, false, 'Опубликовать');
@@ -209,4 +213,5 @@ const formValidation = () => {
 
 export {
   formValidation,
+  setUserFormSubmit,
 };
