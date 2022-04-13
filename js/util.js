@@ -28,6 +28,14 @@ const housingTypes = {
   hotel: 'Отель',
 };
 
+const Cities = {
+  TOKYO: {
+    lat: 35.6895,
+    lng: 139.692,
+    scale: 12,
+  },
+};
+
 const ALERT_SHOW_TIME = 10000;
 
 const checkNumber = (a, b) => {
@@ -227,9 +235,24 @@ const mapFormfields = (options, main, secondary) => {
   return result;
 };
 
-const getCoordinateObject = (latVar, lngVar) => {
-  const result = {lat: latVar, lng: lngVar};
+const getCoordinateObject = (city) => {
+  const result = {lat: Cities[city].lat, lng: Cities[city].lng};
   return result;
+};
+
+const getСitiesScale = (city) => {
+  const result = Cities[city].scale;
+  return result;
+};
+
+const resetMap = (pin, mapL, city) => {
+  pin.setLatLng(
+    getCoordinateObject(city),
+  );
+
+  mapL.setView(
+    getCoordinateObject(city),
+    getСitiesScale(city));
 };
 
 const showAlert = (message) => {
@@ -277,4 +300,6 @@ export {
   getCoordinateObject,
   showAlert,
   blockButton,
+  getСitiesScale,
+  resetMap,
 };

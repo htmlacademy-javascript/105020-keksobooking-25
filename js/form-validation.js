@@ -1,6 +1,7 @@
 import {
   mapFormfields,
   blockButton,
+  showAlert,
 } from './util.js';
 
 import {
@@ -10,10 +11,6 @@ import {
 import {
   sendData,
 } from './api.js';
-
-import {
-  showAlert,
-} from './util.js';
 
 const
   RoomSelector = {

@@ -4,17 +4,13 @@ import {
 
 import {
   getCoordinateObject,
+  getСitiesScale,
+  resetMap,
 } from './util.js';
 
 import {
   adsGeneration,
 } from './ads-generation.js';
-
-const Tokyo = {
-  LAT: 35.6895,
-  LNG: 139.692,
-  SCALE: 12,
-};
 
 const PinOptions = {
   MAIM_PIN: {
@@ -37,8 +33,8 @@ const map = L.map('map-canvas')
     enableFormAccessibility();
   })
   .setView(
-    getCoordinateObject(Tokyo.LAT, Tokyo.LNG),
-    Tokyo.SCALE);
+    getCoordinateObject('TOKYO'),
+    getСitiesScale('TOKYO'));
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -60,7 +56,7 @@ const
   });
 
 const mainPinMarker = L.marker(
-  getCoordinateObject(Tokyo.LAT, Tokyo.LNG),
+  getCoordinateObject('TOKYO'),
   {
     draggable: true,
     icon: mainPinIcon,
@@ -74,14 +70,13 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${coordinates.lat.toFixed(4)}, ${coordinates.lng.toFixed(4)}`;
 });
 
-resetButton.addEventListener('click', () => {
-  mainPinMarker.setLatLng(
-    getCoordinateObject(Tokyo.LAT, Tokyo.LNG),
-  );
+const resetTokyoMap = () => {
+  const result = resetMap(mainPinMarker, map, 'TOKYO');
+  return result;
+};
 
-  map.setView(
-    getCoordinateObject(Tokyo.LAT, Tokyo.LNG),
-    Tokyo.SCALE);
+resetButton.addEventListener('click', () => {
+  resetTokyoMap();
 });
 
 const markerGroup = L.layerGroup().addTo(map);
@@ -102,7 +97,6 @@ const createMarker = (point) => {
     .addTo(markerGroup)
     .bindPopup(adsGeneration(point));
 };
-
 
 const addMarkersMap = (data) => {
   data.forEach((point) => {
