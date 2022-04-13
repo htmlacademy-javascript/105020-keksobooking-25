@@ -13,7 +13,7 @@ import {
 } from './ads-generation.js';
 
 const PinOptions = {
-  MAIM_PIN: {
+  MAIN_PIN: {
     url: 'img/main-pin.svg',
     size: [52, 52],
     anchor: [26, 53],
@@ -45,9 +45,9 @@ L.tileLayer(
 
 const
   mainPinIcon = L.icon({
-    iconUrl: PinOptions.MAIM_PIN.url,
-    iconSize: PinOptions.MAIM_PIN.size,
-    iconAnchor: PinOptions.MAIM_PIN.anchor,
+    iconUrl: PinOptions.MAIN_PIN.url,
+    iconSize: PinOptions.MAIN_PIN.size,
+    iconAnchor: PinOptions.MAIN_PIN.anchor,
   }),
   pinIcon = L.icon({
     iconUrl: PinOptions.PIN.url,
