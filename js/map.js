@@ -6,6 +6,7 @@ import {
   getCoordinateObject,
   getСitiesScale,
   resetMap,
+  getStringCoordinates,
 } from './util.js';
 
 import {
@@ -62,7 +63,6 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
-
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
@@ -70,9 +70,16 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${coordinates.lat.toFixed(4)}, ${coordinates.lng.toFixed(4)}`;
 });
 
+address.value = getStringCoordinates('TOKYO');
+
 const resetTokyoMap = () => {
-  const result = resetMap(mainPinMarker, map, 'TOKYO');
-  return result;
+  (function() {
+    resetMap(mainPinMarker, map, 'TOKYO');
+    setTimeout(() => {
+      address.value = getStringCoordinates('TOKYO');
+    }, 1);
+  }());
+
 };
 
 resetButton.addEventListener('click', () => {
