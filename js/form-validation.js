@@ -70,7 +70,7 @@ const pristine = new Pristine(adForm, {
   errorTextClass: 'ad-form__error-text',
 });
 
-const formValidation = () => {
+const validateForm = () => {
   function validateTitle (value) {
     return value.length >= titleOptions.MIN && value.length <= titleOptions.MAX;
   }
@@ -216,6 +216,6 @@ const setUserFormSubmit = (resetMap) => {
 };
 
 export {
-  formValidation,
+  validateForm,
   setUserFormSubmit,
 };
