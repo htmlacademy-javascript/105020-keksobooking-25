@@ -71,9 +71,10 @@ const pristine = new Pristine(adForm, {
 });
 
 const validateForm = () => {
-  function validateTitle (value) {
-    return value.length >= titleOptions.MIN && value.length <= titleOptions.MAX;
-  }
+  const validateTitle = (value) => {
+    const result = value.length >= titleOptions.MIN && value.length <= titleOptions.MAX;
+    return result;
+  };
 
   pristine.addValidator(
     adForm.querySelector('#title'),

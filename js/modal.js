@@ -13,7 +13,7 @@ const
 // success
 const modalRemoveSuccessElement = () => {
   document.body.removeChild(successElement);
-  closeSuccessModal();
+  onSuccessModalClose();
 };
 
 const onSuccessEscKeydown = (evt) => {
@@ -28,7 +28,7 @@ const openSuccessModal = () => {
   successElement.addEventListener('click', modalRemoveSuccessElement);
 };
 
-function closeSuccessModal () {
+function onSuccessModalClose () {
   document.removeEventListener('keydown', onSuccessEscKeydown);
   successElement.removeEventListener('click', modalRemoveSuccessElement);
 }
@@ -36,7 +36,7 @@ function closeSuccessModal () {
 // error
 const modalRemoveErrorElement = () => {
   document.body.removeChild(errorElement);
-  closeErrorModal();
+  onErrorModalClose();
 };
 
 const onErrorEscKeydown = (evt) => {
@@ -51,7 +51,7 @@ const openErrorModal = () => {
   errorElement.addEventListener('click', modalRemoveErrorElement);
 };
 
-function closeErrorModal () {
+function onErrorModalClose () {
   document.removeEventListener('keydown', onErrorEscKeydown);
   errorElement.removeEventListener('click', modalRemoveErrorElement);
 }
