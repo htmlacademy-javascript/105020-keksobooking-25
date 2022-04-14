@@ -1,5 +1,6 @@
 import './ads-generation.js';
 import './form-accessibility.js';
+import './modal.js';
 
 import {
   addMarkersMap,

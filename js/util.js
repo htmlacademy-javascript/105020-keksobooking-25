@@ -288,6 +288,11 @@ const blockButton = (button, status, text) => {
   button.textContent = text;
 };
 
+const isEscapeKey = (evt) => {
+  const result = evt.key === 'Escape';
+  return result;
+};
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
@@ -309,4 +314,5 @@ export {
   getСitiesScale,
   resetMap,
   getStringCoordinates,
+  isEscapeKey,
 };

@@ -12,6 +12,11 @@ import {
   sendData,
 } from './api.js';
 
+import {
+  openSuccessModal,
+  openErrorModal,
+} from './modal.js';
+
 const
   RoomSelector = {
     ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»', array: ['1']},
@@ -197,10 +202,10 @@ const setUserFormSubmit = (resetMap) => {
         () => {
           evt.target.reset();
           resetMap();
-          showAlert('Форма успешно отправлена', 'green');
+          openSuccessModal();
         },
         () => {
-          showAlert('Не удалось отправить форму');
+          openErrorModal();
         },
         () => {
           blockButton(submitButton, false, 'Опубликовать');
