@@ -28,6 +28,16 @@ const housingTypes = {
   hotel: 'Отель',
 };
 
+const Cities = {
+  TOKYO: {
+    lat: 35.6895,
+    lng: 139.692,
+    scale: 12,
+  },
+};
+
+const ALERT_SHOW_TIME = 10000;
+
 const checkNumber = (a, b) => {
   if (Math.sign(a) === NEGATIVE_NUM || Math.sign(b) === NEGATIVE_NUM) {
     throw new Error('Negative number is not allowed');
@@ -225,8 +235,61 @@ const mapFormfields = (options, main, secondary) => {
   return result;
 };
 
-const getCoordinateObject = (latVar, lngVar) => {
-  const result = {lat: latVar, lng: lngVar};
+const getCoordinateObject = (city) => {
+  const result = {lat: Cities[city].lat, lng: Cities[city].lng};
+  return result;
+};
+
+const getStringCoordinates = (city) => {
+  const coordinatesObject = getCoordinateObject(city);
+  const result = `${coordinatesObject.lat}, ${coordinatesObject.lng}`;
+  return result;
+};
+
+const getСitiesScale = (city) => {
+  const result = Cities[city].scale;
+  return result;
+};
+
+const resetMap = (pin, mapL, city) => {
+  pin.setLatLng(
+    getCoordinateObject(city),
+  );
+
+  mapL.setView(
+    getCoordinateObject(city),
+    getСitiesScale(city));
+};
+
+const showAlert = (message, bgColor = 'red', place = 'top') => {
+  const alertContainer = document.createElement('div');
+  alertContainer.style.zIndex = 1000;
+  alertContainer.style.position = 'fixed';
+  alertContainer.style.left = 0;
+  alertContainer.style[place] = 0;
+  alertContainer.style.right = 0;
+  alertContainer.style.padding = '10px 3px';
+  alertContainer.style.fontSize = '30px';
+  alertContainer.style.textAlign = 'center';
+  alertContainer.style.backgroundColor = bgColor;
+  alertContainer.style.color = 'white';
+
+  alertContainer.textContent = message;
+
+  document.body.append(alertContainer);
+
+  setTimeout(() => {
+    alertContainer.remove();
+  }, ALERT_SHOW_TIME);
+};
+
+const blockButton = (button, status, text) => {
+  button.disabled = status;
+  button.textContent = text;
+};
+
+const isEscapeKey = (evt) => {
+  const result = evt.key === 'Escape';
   return result;
 };
 
@@ -246,4 +309,10 @@ export {
   changeAttributes,
   mapFormfields,
   getCoordinateObject,
+  showAlert,
+  blockButton,
+  getСitiesScale,
+  resetMap,
+  getStringCoordinates,
+  isEscapeKey,
 };
