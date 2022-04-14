@@ -32,6 +32,7 @@ const sendData = (onSuccess, onFail, onEnd, body) => {
       }
     })
     .catch((error) => {
+      onFail();
       showAlert(error, 'yellow', 'bottom');
     })
     .finally(() => {
