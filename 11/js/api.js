@@ -2,8 +2,13 @@ import {
   showAlert,
 } from './util.js';
 
+const ServerOptions = {
+  GET_URL: 'https://25.javascript.pages.academy/keksobooking/data',
+  SEND_URL: 'https://25.javascript.pages.academy/keksobooking',
+};
+
 const getData = (onSuccess) => {
-  fetch('https://25.javascript.pages.academy/keksobooking/data')
+  fetch(ServerOptions.GET_URL)
     .then((response) => response.json())
     .then((data) => {
       onSuccess(data);
@@ -13,7 +18,7 @@ const getData = (onSuccess) => {
 
 const sendData = (onSuccess, onFail, onEnd, body) => {
   fetch(
-    'https://25.javascript.pages.academy/keksobooking',
+    ServerOptions.SEND_URL,
     {
       method: 'POST',
       body,
@@ -27,6 +32,7 @@ const sendData = (onSuccess, onFail, onEnd, body) => {
       }
     })
     .catch((error) => {
+      onFail();
       showAlert(error, 'yellow', 'bottom');
     })
     .finally(() => {

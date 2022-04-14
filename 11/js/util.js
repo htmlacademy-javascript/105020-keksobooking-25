@@ -240,6 +240,12 @@ const getCoordinateObject = (city) => {
   return result;
 };
 
+const getStringCoordinates = (city) => {
+  const coordinatesObject = getCoordinateObject(city);
+  const result = `${coordinatesObject.lat}, ${coordinatesObject.lng}`;
+  return result;
+};
+
 const getСitiesScale = (city) => {
   const result = Cities[city].scale;
   return result;
@@ -282,6 +288,11 @@ const blockButton = (button, status, text) => {
   button.textContent = text;
 };
 
+const isEscapeKey = (evt) => {
+  const result = evt.key === 'Escape';
+  return result;
+};
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
@@ -302,4 +313,6 @@ export {
   blockButton,
   getСitiesScale,
   resetMap,
+  getStringCoordinates,
+  isEscapeKey,
 };

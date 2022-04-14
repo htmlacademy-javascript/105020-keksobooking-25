@@ -1,7 +1,6 @@
 import {
   mapFormfields,
   blockButton,
-  showAlert,
 } from './util.js';
 
 import {
@@ -11,6 +10,11 @@ import {
 import {
   sendData,
 } from './api.js';
+
+import {
+  openSuccessModal,
+  openErrorModal,
+} from './modal.js';
 
 const
   RoomSelector = {
@@ -197,10 +201,10 @@ const setUserFormSubmit = (resetMap) => {
         () => {
           evt.target.reset();
           resetMap();
-          showAlert('Форма успешно отправлена', 'green');
+          openSuccessModal();
         },
         () => {
-          showAlert('Не удалось отправить форму');
+          openErrorModal();
         },
         () => {
           blockButton(submitButton, false, 'Опубликовать');

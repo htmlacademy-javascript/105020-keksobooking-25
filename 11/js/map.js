@@ -6,6 +6,7 @@ import {
   getCoordinateObject,
   getСitiesScale,
   resetMap,
+  getStringCoordinates,
 } from './util.js';
 
 import {
@@ -13,7 +14,7 @@ import {
 } from './ads-generation.js';
 
 const PinOptions = {
-  MAIM_PIN: {
+  MAIN_PIN: {
     url: 'img/main-pin.svg',
     size: [52, 52],
     anchor: [26, 53],
@@ -45,9 +46,9 @@ L.tileLayer(
 
 const
   mainPinIcon = L.icon({
-    iconUrl: PinOptions.MAIM_PIN.url,
-    iconSize: PinOptions.MAIM_PIN.size,
-    iconAnchor: PinOptions.MAIM_PIN.anchor,
+    iconUrl: PinOptions.MAIN_PIN.url,
+    iconSize: PinOptions.MAIN_PIN.size,
+    iconAnchor: PinOptions.MAIN_PIN.anchor,
   }),
   pinIcon = L.icon({
     iconUrl: PinOptions.PIN.url,
@@ -62,7 +63,6 @@ const mainPinMarker = L.marker(
     icon: mainPinIcon,
   },
 );
-
 mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
@@ -70,9 +70,15 @@ mainPinMarker.on('moveend', (evt) => {
   address.value = `${coordinates.lat.toFixed(4)}, ${coordinates.lng.toFixed(4)}`;
 });
 
+address.value = getStringCoordinates('TOKYO');
+
 const resetTokyoMap = () => {
-  const result = resetMap(mainPinMarker, map, 'TOKYO');
-  return result;
+  (function () {
+    resetMap(mainPinMarker, map, 'TOKYO');
+    setTimeout(() => {
+      address.value = getStringCoordinates('TOKYO');
+    }, 1);
+  }());
 };
 
 resetButton.addEventListener('click', () => {
