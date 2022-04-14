@@ -14,5 +14,10 @@ import {
   setUserFormSubmit,
 } from './form-validation.js';
 
-getData(addMarkersMap);
+const MAX_POINT = 10;
+
+getData((data) => {
+  addMarkersMap(data.slice(0, MAX_POINT));
+});
+
 setUserFormSubmit(resetTokyoMap);

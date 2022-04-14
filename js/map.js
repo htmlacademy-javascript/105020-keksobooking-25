@@ -73,13 +73,12 @@ mainPinMarker.on('moveend', (evt) => {
 address.value = getStringCoordinates('TOKYO');
 
 const resetTokyoMap = () => {
-  (function() {
+  (function () {
     resetMap(mainPinMarker, map, 'TOKYO');
     setTimeout(() => {
       address.value = getStringCoordinates('TOKYO');
     }, 1);
   }());
-
 };
 
 resetButton.addEventListener('click', () => {
