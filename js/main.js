@@ -1,5 +1,7 @@
 import './ads-generation.js';
-import './form-accessibility.js';
+import {
+  enableFiltersccessibility,
+} from'./form-accessibility.js';
 import './modal.js';
 
 import {
@@ -19,6 +21,7 @@ const MAX_POINT = 10;
 
 getData((data) => {
   addMarkersMap(data.slice(0, MAX_POINT));
+  enableFiltersccessibility();
 });
 
 setUserFormSubmit(resetTokyoMap);
