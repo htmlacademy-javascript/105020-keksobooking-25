@@ -77,7 +77,7 @@ const resetTokyoMap = () => {
     resetMap(mainPinMarker, map, 'TOKYO');
     setTimeout(() => {
       address.value = getStringCoordinates('TOKYO');
-    }, 1);
+    }, 0);
   }());
 };
 
