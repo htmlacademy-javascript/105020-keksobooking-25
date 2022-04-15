@@ -1,5 +1,6 @@
 import {
   enableFormAccessibility,
+  enableFiltersccessibility,
 } from './form-accessibility.js';
 
 import {
@@ -13,6 +14,10 @@ import {
   adsGeneration,
 } from './ads-generation.js';
 
+import {
+  getData,
+} from './api.js';
+
 const PinOptions = {
   MAIN_PIN: {
     url: 'img/main-pin.svg',
@@ -24,14 +29,25 @@ const PinOptions = {
     size: [40, 40],
     anchor: [20, 41],
   },
+  MAX_PIN: 10,
 };
 
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
 
+const addMarkersMap = (data) => {
+  data.forEach((point) => {
+    onMapCreateMarker(point);
+  });
+};
+
 const map = L.map('map-canvas')
   .on('load', () => {
     enableFormAccessibility();
+    getData((data) => {
+      addMarkersMap(data.slice(0, PinOptions.MAX_PIN));
+      enableFiltersccessibility();
+    });
   })
   .setView(
     getCoordinateObject('TOKYO'),
@@ -87,7 +103,7 @@ resetButton.addEventListener('click', () => {
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = (point) => {
+function onMapCreateMarker (point) {
   const {lat, lng} = point.location;
   const marker = L.marker(
     {
@@ -102,13 +118,7 @@ const createMarker = (point) => {
   marker
     .addTo(markerGroup)
     .bindPopup(adsGeneration(point));
-};
-
-const addMarkersMap = (data) => {
-  data.forEach((point) => {
-    createMarker(point);
-  });
-};
+}
 
 export {
   addMarkersMap,
