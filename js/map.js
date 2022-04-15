@@ -18,6 +18,10 @@ import {
   getData,
 } from './api.js';
 
+import {
+  mapFilters,
+} from './map-filters.js';
+
 const PinOptions = {
   MAIN_PIN: {
     url: 'img/main-pin.svg',
@@ -28,7 +32,6 @@ const PinOptions = {
     url: 'img/pin.svg',
     size: [40, 40],
     anchor: [20, 41],
-    max: 10,
   },
 };
 
@@ -36,16 +39,18 @@ const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
 
 const addMarkersMap = (data) => {
-  data.forEach((point) => {
-    onMapCreateMarker(point);
-  });
+  //TODO
+  mapFilters(data)
+    .forEach((point) => {
+      onMapCreateMarker(point);
+    });
 };
 
 const map = L.map('map-canvas')
   .on('load', () => {
     enableFormAccessibility();
     getData((data) => {
-      addMarkersMap(data.slice(0, PinOptions.PIN.max));
+      addMarkersMap(data);
       enableFiltersccessibility();
     });
   })
@@ -120,7 +125,17 @@ function onMapCreateMarker (point) {
     .bindPopup(adsGeneration(point));
 }
 
+//TODO
+const clearAddMarkersMap = () => {
+  getData((data) => {
+    markerGroup.clearLayers();
+    addMarkersMap(data);
+  });
+};
+
+const housingType = document.querySelector('#housing-type');
+housingType.addEventListener('change', clearAddMarkersMap);
+
 export {
-  addMarkersMap,
   resetTokyoMap,
 };
