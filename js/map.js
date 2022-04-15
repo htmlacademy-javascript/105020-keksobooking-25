@@ -28,8 +28,8 @@ const PinOptions = {
     url: 'img/pin.svg',
     size: [40, 40],
     anchor: [20, 41],
+    max: 10,
   },
-  MAX_PIN: 10,
 };
 
 const address = document.querySelector('#address');
@@ -45,7 +45,7 @@ const map = L.map('map-canvas')
   .on('load', () => {
     enableFormAccessibility();
     getData((data) => {
-      addMarkersMap(data.slice(0, PinOptions.MAX_PIN));
+      addMarkersMap(data.slice(0, PinOptions.PIN.max));
       enableFiltersccessibility();
     });
   })
