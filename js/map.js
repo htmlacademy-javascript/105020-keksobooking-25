@@ -129,7 +129,7 @@ function onMapCreateMarker (point) {
 const clearAddMarkersMap = () => {
   getData((data) => {
     markerGroup.clearLayers();
-    addMarkersMap(data);
+    addMarkersMap(data); //FIXME Работа с статичным массивом Не запрашивает данные сервера
   });
 };
 
