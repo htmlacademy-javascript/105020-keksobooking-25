@@ -130,7 +130,7 @@ const clearAddMarkersMap = () => {
   markerGroup.clearLayers();
   addMarkersMap(arrayObjectDataMap);
 };
-//TODO
+//TODO addEventListener На другие фильтры
 const housingType = document.querySelector('#housing-type');
 housingType.addEventListener('change', clearAddMarkersMap);
 
