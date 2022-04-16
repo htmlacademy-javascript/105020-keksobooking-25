@@ -126,12 +126,11 @@ function onMapCreateMarker (point) {
     .bindPopup(adsGeneration(point));
 }
 
-//TODO
 const clearAddMarkersMap = () => {
   markerGroup.clearLayers();
   addMarkersMap(arrayObjectDataMap);
 };
-
+//TODO
 const housingType = document.querySelector('#housing-type');
 housingType.addEventListener('change', clearAddMarkersMap);
 
