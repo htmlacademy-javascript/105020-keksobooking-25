@@ -1,4 +1,5 @@
 const NEGATIVE_NUM = -1;
+const RERENDER_DELAY = 500;
 
 const
   DeclinationRooms = {
@@ -293,6 +294,14 @@ const isEscapeKey = (evt) => {
   return result;
 };
 
+function debounce (callback, timeoutDelay = RERENDER_DELAY) {
+  let timeoutId;
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
 export {
   getRandomPositiveInteger,
   getRandomPositiveFloat,
@@ -315,4 +324,5 @@ export {
   resetMap,
   getStringCoordinates,
   isEscapeKey,
+  debounce,
 };

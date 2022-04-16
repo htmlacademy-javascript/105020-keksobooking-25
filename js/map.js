@@ -8,6 +8,7 @@ import {
   getСitiesScale,
   resetMap,
   getStringCoordinates,
+  debounce
 } from './util.js';
 
 import {
@@ -130,9 +131,24 @@ const clearAddMarkersMap = () => {
   markerGroup.clearLayers();
   addMarkersMap(arrayObjectDataMap);
 };
-//TODO addEventListener На другие фильтры
+
 const housingType = document.querySelector('#housing-type');
-housingType.addEventListener('change', clearAddMarkersMap);
+housingType.addEventListener('change', debounce(clearAddMarkersMap));
+
+const housingPrice = document.querySelector('#housing-price');
+housingPrice.addEventListener('change', debounce(clearAddMarkersMap));
+
+const housingRooms = document.querySelector('#housing-rooms');
+housingRooms.addEventListener('change', debounce(clearAddMarkersMap));
+
+const housingGuests = document.querySelector('#housing-guests');
+housingGuests.addEventListener('change', debounce(clearAddMarkersMap));
+
+const housingFeatures = document.querySelector('#housing-features');
+const featuresInputs = housingFeatures.querySelectorAll('input[name=features]');
+featuresInputs.forEach((elem) => {
+  elem.addEventListener('change', debounce(clearAddMarkersMap));
+});
 
 export {
   resetTokyoMap,
