@@ -37,9 +37,9 @@ const PinOptions = {
 
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
+const arrayObjectDataMap = new Array();
 
 const addMarkersMap = (data) => {
-  //TODO
   mapFilters(data)
     .forEach((point) => {
       onMapCreateMarker(point);
@@ -52,6 +52,7 @@ const map = L.map('map-canvas')
     getData((data) => {
       addMarkersMap(data);
       enableFiltersccessibility();
+      arrayObjectDataMap.push(...data);
     });
   })
   .setView(
@@ -127,10 +128,8 @@ function onMapCreateMarker (point) {
 
 //TODO
 const clearAddMarkersMap = () => {
-  getData((data) => {
-    markerGroup.clearLayers();
-    addMarkersMap(data); //FIXME Работа с статичным массивом Не запрашивает данные сервера
-  });
+  markerGroup.clearLayers();
+  addMarkersMap(arrayObjectDataMap);
 };
 
 const housingType = document.querySelector('#housing-type');
