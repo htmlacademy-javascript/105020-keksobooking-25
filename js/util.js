@@ -58,52 +58,6 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getRandomPositiveFloat = (a, b, digits = 1) => {
-  try {
-    checkNumber(a, b);
-  } catch (err) {
-    // eslint-disable-next-line
-    console.log(err);
-  }
-  const min = Math.min(Math.abs(a), Math.abs(b));
-  const max = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (max - min) + min;
-  return +result.toFixed(digits);
-};
-
-const putZeroBeforeNumber = (number) => {
-  if (String(number).length === 1) {
-    return `0${number}`;
-  }
-  return number.toString();
-};
-
-const copyMixArrayRandomSize = (arr) => {
-  const arrayCopy = arr.slice();
-  const arrayRandomSize = getRandomPositiveInteger(1, arrayCopy.length);
-  const result = new Array();
-  for (let i = 0; i  < arrayRandomSize; i++) {
-    const random = getRandomPositiveInteger(0, arrayCopy.length - 1);
-    const elem = arrayCopy.splice(random, 1)[0];
-    result.push(elem);
-  }
-  return result;
-};
-
-const getArrayRandomInteger = (size) => {
-  const arr = new Array();
-  const result = new Array();
-  for (let i = size; i > 0; i--) {
-    arr.unshift(i);
-  }
-  while (arr.length > 0) {
-    const random = getRandomPositiveInteger(0, arr.length - 1);
-    const elem = arr.splice(random, 1)[0];
-    result.push(elem);
-  }
-  return result;
-};
-
 const getOfferPriceTemplate = (price) => {
   const result = `${price} <span>₽/ночь</span>`;
   return result;
@@ -304,10 +258,6 @@ function debounce (callback, timeoutDelay = RERENDER_DELAY) {
 
 export {
   getRandomPositiveInteger,
-  getRandomPositiveFloat,
-  putZeroBeforeNumber,
-  copyMixArrayRandomSize,
-  getArrayRandomInteger,
   getOfferPriceTemplate,
   getOfferType,
   getOfferСapacity,
