@@ -53,29 +53,29 @@ const applyFilter = (data, select, features) => {
   }
 };
 
-const type = (data) => applyFilter(data, '#housing-type');
-const price = (data) => applyFilter(data, '#housing-price');
-const rooms = (data) => applyFilter(data, '#housing-rooms');
-const guests = (data) => applyFilter(data, '#housing-guests');
-const wifi = (data) => applyFilter(data, '#filter-wifi', 'features');
-const dishwasher = (data) => applyFilter(data, '#filter-dishwasher', 'features');
-const parking = (data) => applyFilter(data, '#filter-parking', 'features');
-const washer = (data) => applyFilter(data, '#filter-washer', 'features');
-const conditioner = (data) => applyFilter(data, '#filter-conditioner', 'features');
+const checkType = (data) => applyFilter(data, '#housing-type');
+const checkPrice = (data) => applyFilter(data, '#housing-price');
+const checkRooms = (data) => applyFilter(data, '#housing-rooms');
+const checkGuests = (data) => applyFilter(data, '#housing-guests');
+const checkWifi = (data) => applyFilter(data, '#filter-wifi', 'features');
+const checkDishwasher = (data) => applyFilter(data, '#filter-dishwasher', 'features');
+const checkParking = (data) => applyFilter(data, '#filter-parking', 'features');
+const checkWasher = (data) => applyFilter(data, '#filter-washer', 'features');
+const checkConditioner = (data) => applyFilter(data, '#filter-conditioner', 'features');
 
 const mapFilters = (data) => {
   const {PIN_MAX} = FiltersOptions;
   const result = data
     .slice()
-    .filter(type)
-    .filter(price)
-    .filter(rooms)
-    .filter(guests)
-    .filter(wifi)
-    .filter(dishwasher)
-    .filter(parking)
-    .filter(washer)
-    .filter(conditioner)
+    .filter(checkType)
+    .filter(checkPrice)
+    .filter(checkRooms)
+    .filter(checkGuests)
+    .filter(checkWifi)
+    .filter(checkDishwasher)
+    .filter(checkParking)
+    .filter(checkWasher)
+    .filter(checkConditioner)
     .slice(0, PIN_MAX);
   return result;
 };
