@@ -70,10 +70,11 @@ const pristine = new Pristine(adForm, {
   errorTextClass: 'ad-form__error-text',
 });
 
-const formValidation = () => {
-  function validateTitle (value) {
-    return value.length >= titleOptions.MIN && value.length <= titleOptions.MAX;
-  }
+const validateForm = () => {
+  const validateTitle = (value) => {
+    const result = value.length >= titleOptions.MIN && value.length <= titleOptions.MAX;
+    return result;
+  };
 
   pristine.addValidator(
     adForm.querySelector('#title'),
@@ -216,6 +217,6 @@ const setUserFormSubmit = (resetMap) => {
 };
 
 export {
-  formValidation,
+  validateForm,
   setUserFormSubmit,
 };

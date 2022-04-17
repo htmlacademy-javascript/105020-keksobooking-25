@@ -7,7 +7,7 @@ import {
 } from './form-slider.js';
 
 import {
-  formValidation,
+  validateForm,
 } from './form-validation.js';
 
 
@@ -25,12 +25,17 @@ mapFilters.classList.add('map__filters--disabled');
 changeAttributes('add', ['disabled', ''], adFormFields, mapFiltersFields);
 
 const enableFormAccessibility = () => {
-  formValidation();
+  validateForm();
   adForm.classList.remove('ad-form--disabled');
+  changeAttributes('del', ['disabled'], adFormFields);
+};
+
+const enableFiltersccessibility = () => {
   mapFilters.classList.remove('map__filters--disabled');
-  changeAttributes('del', ['disabled'], adFormFields, mapFiltersFields);
+  changeAttributes('del', ['disabled'], mapFiltersFields);
 };
 
 export {
   enableFormAccessibility,
+  enableFiltersccessibility,
 };

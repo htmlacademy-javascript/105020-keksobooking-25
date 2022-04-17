@@ -1,5 +1,6 @@
 import {
   enableFormAccessibility,
+  enableFiltersccessibility,
 } from './form-accessibility.js';
 
 import {
@@ -7,11 +8,20 @@ import {
   getСitiesScale,
   resetMap,
   getStringCoordinates,
+  debounce
 } from './util.js';
 
 import {
   adsGeneration,
 } from './ads-generation.js';
+
+import {
+  getData,
+} from './api.js';
+
+import {
+  mapFilters,
+} from './map-filters.js';
 
 const PinOptions = {
   MAIN_PIN: {
@@ -28,10 +38,23 @@ const PinOptions = {
 
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
+const arrayObjectDataMap = new Array();
+
+const addMarkersMap = (data) => {
+  mapFilters(data)
+    .forEach((point) => {
+      onMapCreateMarker(point);
+    });
+};
 
 const map = L.map('map-canvas')
   .on('load', () => {
     enableFormAccessibility();
+    getData((data) => {
+      addMarkersMap(data);
+      enableFiltersccessibility();
+      arrayObjectDataMap.push(...data);
+    });
   })
   .setView(
     getCoordinateObject('TOKYO'),
@@ -77,7 +100,7 @@ const resetTokyoMap = () => {
     resetMap(mainPinMarker, map, 'TOKYO');
     setTimeout(() => {
       address.value = getStringCoordinates('TOKYO');
-    }, 1);
+    }, 0);
   }());
 };
 
@@ -87,7 +110,7 @@ resetButton.addEventListener('click', () => {
 
 const markerGroup = L.layerGroup().addTo(map);
 
-const createMarker = (point) => {
+function onMapCreateMarker (point) {
   const {lat, lng} = point.location;
   const marker = L.marker(
     {
@@ -102,15 +125,31 @@ const createMarker = (point) => {
   marker
     .addTo(markerGroup)
     .bindPopup(adsGeneration(point));
+}
+
+const clearAddMarkersMap = () => {
+  markerGroup.clearLayers();
+  addMarkersMap(arrayObjectDataMap);
 };
 
-const addMarkersMap = (data) => {
-  data.forEach((point) => {
-    createMarker(point);
-  });
-};
+const housingType = document.querySelector('#housing-type');
+housingType.addEventListener('change', debounce(clearAddMarkersMap));
+
+const housingPrice = document.querySelector('#housing-price');
+housingPrice.addEventListener('change', debounce(clearAddMarkersMap));
+
+const housingRooms = document.querySelector('#housing-rooms');
+housingRooms.addEventListener('change', debounce(clearAddMarkersMap));
+
+const housingGuests = document.querySelector('#housing-guests');
+housingGuests.addEventListener('change', debounce(clearAddMarkersMap));
+
+const housingFeatures = document.querySelector('#housing-features');
+const featuresInputs = housingFeatures.querySelectorAll('input[name=features]');
+featuresInputs.forEach((elem) => {
+  elem.addEventListener('change', debounce(clearAddMarkersMap));
+});
 
 export {
-  addMarkersMap,
   resetTokyoMap,
 };
