@@ -25,7 +25,6 @@ const checkEquality = (option, data) => {
 };
 
 const checkFeatures = (option, data) => {
-  // console.log(option.value);
   if (data === undefined) {
     return false;
   }

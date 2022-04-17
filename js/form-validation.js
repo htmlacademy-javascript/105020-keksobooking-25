@@ -16,6 +16,10 @@ import {
   openErrorModal,
 } from './modal.js';
 
+import {
+  checkImage,
+} from './check-image.js';
+
 const
   RoomSelector = {
     ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»', array: ['1']},
@@ -189,6 +193,9 @@ const validateForm = () => {
 
   timeIn.addEventListener('change', onTimeInChange);
   timeOut.addEventListener('change', onTimeOutChange);
+
+  checkImage('#avatar', '.ad-form-header__preview');
+  checkImage('#images', '.ad-form__photo');
 };
 
 const setUserFormSubmit = (resetMap) => {
