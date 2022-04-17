@@ -47,6 +47,7 @@ const PinOptions = {
 
 const CURRENT_CITY = 'TOKYO';
 
+const adForm = document.querySelector('.ad-form');
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
 const arrayObjectDataMap = new Array();
@@ -116,6 +117,7 @@ const resetTokyoMap = () => {
 };
 
 resetButton.addEventListener('click', () => {
+  adForm.reset();
   resetTokyoMap();
   resetDivPreview();
   resetSlider();
