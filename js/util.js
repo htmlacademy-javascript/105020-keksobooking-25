@@ -16,7 +16,7 @@ const
     TWO_ELEM_INNER_HTML: 'twoElemInnerHTML',
     TWO_ELEM_TEXT_CONTENT: 'twoElemTextContent',
   },
-  AttributesAaction = {
+  AttributesAction = {
     ADD: 'add',
     DEL: 'del'
   };
@@ -39,6 +39,8 @@ const Cities = {
 
 const ALERT_SHOW_TIME = 10000;
 
+const formMapFilters = document.querySelector('.map__filters');
+
 const checkNumber = (a, b) => {
   if (Math.sign(a) === NEGATIVE_NUM || Math.sign(b) === NEGATIVE_NUM) {
     throw new Error('Negative number is not allowed');
@@ -56,52 +58,6 @@ const getRandomPositiveInteger = (a, b) => {
   const max = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
   const result = Math.random() * (max - min + 1) + min;
   return Math.floor(result);
-};
-
-const getRandomPositiveFloat = (a, b, digits = 1) => {
-  try {
-    checkNumber(a, b);
-  } catch (err) {
-    // eslint-disable-next-line
-    console.log(err);
-  }
-  const min = Math.min(Math.abs(a), Math.abs(b));
-  const max = Math.max(Math.abs(a), Math.abs(b));
-  const result = Math.random() * (max - min) + min;
-  return +result.toFixed(digits);
-};
-
-const putZeroBeforeNumber = (number) => {
-  if (String(number).length === 1) {
-    return `0${number}`;
-  }
-  return number.toString();
-};
-
-const copyMixArrayRandomSize = (arr) => {
-  const arrayCopy = arr.slice();
-  const arrayRandomSize = getRandomPositiveInteger(1, arrayCopy.length);
-  const result = new Array();
-  for (let i = 0; i  < arrayRandomSize; i++) {
-    const random = getRandomPositiveInteger(0, arrayCopy.length - 1);
-    const elem = arrayCopy.splice(random, 1)[0];
-    result.push(elem);
-  }
-  return result;
-};
-
-const getArrayRandomInteger = (size) => {
-  const arr = new Array();
-  const result = new Array();
-  for (let i = size; i > 0; i--) {
-    arr.unshift(i);
-  }
-  while (arr.length > 0) {
-    const random = getRandomPositiveInteger(0, arr.length - 1);
-    const elem = arr.splice(random, 1)[0];
-    result.push(elem);
-  }
-  return result;
 };
 
 const getOfferPriceTemplate = (price) => {
@@ -181,7 +137,7 @@ const getOfferPhotos = (container, photos) => {
   container.append(fragment);
 };
 
-const offerSelector = (selector, action, elem, task, selectAll) => {
+const selectOffer = (selector, action, elem, task, selectAll) => {
   const {TEXT_CONTENT, TEXT_CONTENT_TASK, INNER_HTML, SRC, PHOTOS, FEATURES, TWO_ELEM_INNER_HTML, TWO_ELEM_TEXT_CONTENT} = OfferSelectorAction;
   let result;
   if (!elem) {
@@ -216,7 +172,7 @@ const offerSelector = (selector, action, elem, task, selectAll) => {
   }
 };
 const changeAttributes = (action, attribute, ...list) => {
-  const {ADD, DEL} = AttributesAaction;
+  const {ADD, DEL} = AttributesAction;
   switch (action) {
     case ADD:
       for (let i = 0; i < list.length; i++){
@@ -260,6 +216,8 @@ const resetMap = (pin, mapL, city) => {
   mapL.setView(
     getCoordinateObject(city),
     getСitiesScale(city));
+
+  formMapFilters.reset();
 };
 
 const showAlert = (message, bgColor = 'red', place = 'top') => {
@@ -289,10 +247,7 @@ const blockButton = (button, status, text) => {
   button.textContent = text;
 };
 
-const isEscapeKey = (evt) => {
-  const result = evt.key === 'Escape';
-  return result;
-};
+const checkIsEscapeKey = (evt) => evt.key === 'Escape';
 
 function debounce (callback, timeoutDelay = RERENDER_DELAY) {
   let timeoutId;
@@ -304,17 +259,13 @@ function debounce (callback, timeoutDelay = RERENDER_DELAY) {
 
 export {
   getRandomPositiveInteger,
-  getRandomPositiveFloat,
-  putZeroBeforeNumber,
-  copyMixArrayRandomSize,
-  getArrayRandomInteger,
   getOfferPriceTemplate,
   getOfferType,
   getOfferСapacity,
   getOfferTime,
   getOfferFeatures,
   getOfferPhotos,
-  offerSelector,
+  selectOffer,
   changeAttributes,
   mapFormfields,
   getCoordinateObject,
@@ -323,6 +274,6 @@ export {
   getСitiesScale,
   resetMap,
   getStringCoordinates,
-  isEscapeKey,
+  checkIsEscapeKey,
   debounce,
 };

@@ -5,6 +5,7 @@ import {
 
 import {
   sliderPriceUpdate,
+  resetSlider,
 } from './form-slider.js';
 
 import {
@@ -12,9 +13,18 @@ import {
 } from './api.js';
 
 import {
+  clearAddMarkersMap,
+} from './map.js';
+
+import {
   openSuccessModal,
   openErrorModal,
 } from './modal.js';
+
+import {
+  checkImage,
+  resetDivPreview,
+} from './form-image.js';
 
 const
   RoomSelector = {
@@ -82,11 +92,9 @@ const validateForm = () => {
     titleOptions.TEXT,
   );
 
-  function validateRoom () {
-    return mapFormfields(roomOptions, roomNumber, roomCapacity);
-  }
+  const validateRoom = () => mapFormfields(roomOptions, roomNumber, roomCapacity);
 
-  function getRoomNumberErrorMessage () {
+  const getRoomNumberErrorMessage = () => {
     const {ONE, TWO, THREE, HUNDRED} = RoomSelector;
     switch (roomNumber.value) {
       case ONE.num:
@@ -98,9 +106,9 @@ const validateForm = () => {
       case HUNDRED.num:
         return HUNDRED.text;
     }
-  }
+  };
 
-  function getRoomCapacityErrorMessage () {
+  const getRoomCapacityErrorMessage = () => {
     const {ONE, TWO, THREE, HUNDRED} = RoomSelector;
     switch (roomNumber.value) {
       case ONE.num:
@@ -112,28 +120,28 @@ const validateForm = () => {
       case HUNDRED.num:
         return HUNDRED.capacity;
     }
-  }
+  };
 
   pristine.addValidator(roomNumber, validateRoom, getRoomNumberErrorMessage);
   pristine.addValidator(roomCapacity, validateRoom, getRoomCapacityErrorMessage);
 
-  function onRoomChange () {
+  const onRoomChange = () => {
     pristine.validate(roomNumber);
     pristine.validate(roomCapacity);
-  }
+  };
 
   adForm
     .querySelectorAll('#room_number, #capacity')
     .forEach((item) => item.addEventListener('change', onRoomChange));
 
-  function validateHousing () {
+  const validateHousing = () => {
     if (housingPrice.value === '') {
       return false;
     }
     return Number(housingOptions[housingType.value]) <= Number(housingPrice.value);
-  }
+  };
 
-  function getHousingTypeErrorMessage () {
+  const getHousingTypeErrorMessage = () => {
     const {BUNGALOW, FLAT, HOTEL, HOUSE, PALACE} = HousingSelector;
     switch (housingType.value) {
       case BUNGALOW.value:
@@ -147,9 +155,9 @@ const validateForm = () => {
       case PALACE.value:
         return PALACE.type;
     }
-  }
+  };
 
-  function getHousingPriceErrorMessage () {
+  const getHousingPriceErrorMessage = () => {
     const {BUNGALOW, FLAT, HOTEL, HOUSE, PALACE} = HousingSelector;
     switch (housingType.value) {
       case BUNGALOW.value:
@@ -163,16 +171,16 @@ const validateForm = () => {
       case PALACE.value:
         return PALACE.text;
     }
-  }
+  };
 
   pristine.addValidator(housingType, validateHousing, getHousingTypeErrorMessage);
   pristine.addValidator(housingPrice, validateHousing, getHousingPriceErrorMessage);
 
-  function onHousingChange () {
+  const onHousingChange = () => {
     housingPrice.placeholder = housingOptions[housingType.value];
     pristine.validate(housingType);
     pristine.validate(housingPrice);
-  }
+  };
 
   adForm
     .querySelectorAll('#type, #price')
@@ -180,15 +188,19 @@ const validateForm = () => {
 
   sliderPriceUpdate(onHousingChange);
 
-  function onTimeInChange () {
+  const onTimeInChange = () => {
     timeOut.value = timeIn.value;
-  }
-  function onTimeOutChange () {
+  };
+
+  const onTimeOutChange = () => {
     timeIn.value = timeOut.value;
-  }
+  };
 
   timeIn.addEventListener('change', onTimeInChange);
   timeOut.addEventListener('change', onTimeOutChange);
+
+  checkImage('#avatar', '.ad-form-header__preview');
+  checkImage('#images', '.ad-form__photo');
 };
 
 const setUserFormSubmit = (resetMap) => {
@@ -202,6 +214,9 @@ const setUserFormSubmit = (resetMap) => {
         () => {
           evt.target.reset();
           resetMap();
+          clearAddMarkersMap();
+          resetDivPreview();
+          resetSlider();
           openSuccessModal();
         },
         () => {

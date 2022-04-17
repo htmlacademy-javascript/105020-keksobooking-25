@@ -30,12 +30,12 @@ const enableFormAccessibility = () => {
   changeAttributes('del', ['disabled'], adFormFields);
 };
 
-const enableFiltersccessibility = () => {
+const enableFormFilters = () => {
   mapFilters.classList.remove('map__filters--disabled');
   changeAttributes('del', ['disabled'], mapFiltersFields);
 };
 
 export {
   enableFormAccessibility,
-  enableFiltersccessibility,
+  enableFormFilters,
 };
