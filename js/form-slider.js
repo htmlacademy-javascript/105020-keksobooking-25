@@ -20,9 +20,9 @@ const createSlider = () => {
     },
   });
 
-  function setValuePrice () {
+  const setValuePrice = () => {
     sliderPrice.noUiSlider.set(valuePrice.value);
-  }
+  };
 
   valuePrice.addEventListener('change', setValuePrice);
 };

@@ -16,7 +16,7 @@ const
     TWO_ELEM_INNER_HTML: 'twoElemInnerHTML',
     TWO_ELEM_TEXT_CONTENT: 'twoElemTextContent',
   },
-  AttributesAaction = {
+  AttributesAction = {
     ADD: 'add',
     DEL: 'del'
   };
@@ -172,7 +172,7 @@ const offerSelector = (selector, action, elem, task, selectAll) => {
   }
 };
 const changeAttributes = (action, attribute, ...list) => {
-  const {ADD, DEL} = AttributesAaction;
+  const {ADD, DEL} = AttributesAction;
   switch (action) {
     case ADD:
       for (let i = 0; i < list.length; i++){

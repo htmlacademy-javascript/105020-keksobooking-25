@@ -38,7 +38,10 @@ const PinOptions = {
     size: [40, 40],
     anchor: [20, 41],
   },
+  COORDINATE_SIZE: 4,
 };
+
+const CURRENT_CITY = 'TOKYO';
 
 const address = document.querySelector('#address');
 const resetButton = document.querySelector('.ad-form__reset');
@@ -61,8 +64,8 @@ const map = L.map('map-canvas')
     });
   })
   .setView(
-    getCoordinateObject('TOKYO'),
-    getСitiesScale('TOKYO'));
+    getCoordinateObject(CURRENT_CITY),
+    getСitiesScale(CURRENT_CITY));
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -84,7 +87,7 @@ const
   });
 
 const mainPinMarker = L.marker(
-  getCoordinateObject('TOKYO'),
+  getCoordinateObject(CURRENT_CITY),
   {
     draggable: true,
     icon: mainPinIcon,
@@ -94,20 +97,20 @@ mainPinMarker.addTo(map);
 
 mainPinMarker.on('moveend', (evt) => {
   const coordinates = evt.target.getLatLng();
-  address.value = `${coordinates.lat.toFixed(4)}, ${coordinates.lng.toFixed(4)}`;
+  address.value = `${coordinates.lat.toFixed(PinOptions.COORDINATE_SIZE)}, ${coordinates.lng.toFixed(PinOptions.COORDINATE_SIZE)}`;
 });
 
-address.value = getStringCoordinates('TOKYO');
+address.value = getStringCoordinates(CURRENT_CITY);
 
 const resetTokyoMap = () => {
   (function () {
-    resetMap(mainPinMarker, map, 'TOKYO');
+    resetMap(mainPinMarker, map, CURRENT_CITY);
     setTimeout(() => {
-      address.value = getStringCoordinates('TOKYO');
+      address.value = getStringCoordinates(CURRENT_CITY);
     }, 0);
   }());
 };
-//TODO
+
 resetButton.addEventListener('click', () => {
   resetTokyoMap();
   resetDivPreview();
