@@ -27,6 +27,10 @@ import {
   resetDivPreview,
 } from './form-image.js';
 
+import {
+  resetSlider,
+} from './form-slider.js';
+
 const PinOptions = {
   MAIN_PIN: {
     url: 'img/main-pin.svg',
@@ -114,6 +118,7 @@ const resetTokyoMap = () => {
 resetButton.addEventListener('click', () => {
   resetTokyoMap();
   resetDivPreview();
+  resetSlider();
   clearAddMarkersMap();
 });
 

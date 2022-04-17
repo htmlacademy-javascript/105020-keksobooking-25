@@ -5,6 +5,7 @@ import {
 
 import {
   sliderPriceUpdate,
+  resetSlider,
 } from './form-slider.js';
 
 import {
@@ -215,6 +216,7 @@ const setUserFormSubmit = (resetMap) => {
           resetMap();
           clearAddMarkersMap();
           resetDivPreview();
+          resetSlider();
           openSuccessModal();
         },
         () => {
