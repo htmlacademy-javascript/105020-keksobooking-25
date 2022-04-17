@@ -1,6 +1,6 @@
 import {
+  enableFormAccessibility,
   enableFormFilters,
-  enableFiltersccessibility,
 } from './form-accessibility.js';
 
 import {
@@ -53,10 +53,10 @@ const addMarkersMap = (data) => {
 
 const map = L.map('map-canvas')
   .on('load', () => {
-    enableFormFilters();
+    enableFormAccessibility();
     getData((data) => {
       addMarkersMap(data);
-      enableFiltersccessibility();
+      enableFormFilters();
       arrayObjectDataMap.push(...data);
     });
   })
