@@ -247,10 +247,7 @@ const blockButton = (button, status, text) => {
   button.textContent = text;
 };
 
-const isEscapeKey = (evt) => {
-  const result = evt.key === 'Escape';
-  return result;
-};
+const checkIsEscapeKey = (evt) => evt.key === 'Escape';
 
 function debounce (callback, timeoutDelay = RERENDER_DELAY) {
   let timeoutId;
@@ -277,6 +274,6 @@ export {
   getСitiesScale,
   resetMap,
   getStringCoordinates,
-  isEscapeKey,
+  checkIsEscapeKey,
   debounce,
 };

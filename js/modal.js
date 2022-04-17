@@ -1,5 +1,5 @@
 import {
-  isEscapeKey,
+  checkIsEscapeKey,
 } from './util.js';
 
 const
@@ -17,7 +17,7 @@ const modalRemoveSuccessElement = () => {
 };
 
 const onSuccessEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (checkIsEscapeKey(evt)) {
     modalRemoveSuccessElement();
   }
 };
@@ -40,7 +40,7 @@ const modalRemoveErrorElement = () => {
 };
 
 const onErrorEscKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (checkIsEscapeKey(evt)) {
     modalRemoveErrorElement();
   }
 };
