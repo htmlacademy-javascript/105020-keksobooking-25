@@ -24,7 +24,7 @@ adForm.classList.add('ad-form--disabled');
 mapFilters.classList.add('map__filters--disabled');
 changeAttributes('add', ['disabled', ''], adFormFields, mapFiltersFields);
 
-const enableFormAccessibility = () => {
+const enableFormFilters = () => {
   validateForm();
   adForm.classList.remove('ad-form--disabled');
   changeAttributes('del', ['disabled'], adFormFields);
@@ -36,6 +36,6 @@ const enableFiltersccessibility = () => {
 };
 
 export {
-  enableFormAccessibility,
+  enableFormFilters,
   enableFiltersccessibility,
 };
