@@ -8,7 +8,7 @@ const FiltersOptions = {
   ALL_ELEMENTS: 'any'
 };
 
-const priceRange = (value, offerPrice) => {
+const checkPriceRange = (value, offerPrice) => {
   const {PRICE} = FiltersOptions;
   switch (value) {
     case PRICE.low.text:
@@ -45,7 +45,7 @@ const applyFilter = (data, select, features) => {
     case '#housing-type':
       return option.value === data.offer.type;
     case '#housing-price':
-      return priceRange(option.value, data.offer.price);
+      return checkPriceRange(option.value, data.offer.price);
     case '#housing-rooms':
       return checkEquality(option.value, data.offer.rooms);
     case '#housing-guests':

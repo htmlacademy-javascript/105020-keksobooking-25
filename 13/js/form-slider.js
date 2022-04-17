@@ -1,3 +1,5 @@
+const DEFAULT_VALUE_PRICE = 1000;
+
 const sliderPrice = document.querySelector('.ad-form__slider');
 const valuePrice = document.querySelector('#price');
 
@@ -7,7 +9,7 @@ const createSlider = () => {
       min: 0,
       max: Number(valuePrice.max),
     },
-    start: Number(valuePrice.placeholder),
+    start: DEFAULT_VALUE_PRICE,
     step: 1,
     connect: 'lower',
     format: {
@@ -20,9 +22,9 @@ const createSlider = () => {
     },
   });
 
-  function setValuePrice () {
+  const setValuePrice = () => {
     sliderPrice.noUiSlider.set(valuePrice.value);
-  }
+  };
 
   valuePrice.addEventListener('change', setValuePrice);
 };
@@ -34,8 +36,13 @@ const sliderPriceUpdate = (callback) => {
   });
 };
 
+const resetSlider = () => {
+  sliderPrice.noUiSlider.set(DEFAULT_VALUE_PRICE);
+  valuePrice.value = '';
+};
 
 export {
   createSlider,
   sliderPriceUpdate,
+  resetSlider,
 };

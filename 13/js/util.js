@@ -16,7 +16,7 @@ const
     TWO_ELEM_INNER_HTML: 'twoElemInnerHTML',
     TWO_ELEM_TEXT_CONTENT: 'twoElemTextContent',
   },
-  AttributesAaction = {
+  AttributesAction = {
     ADD: 'add',
     DEL: 'del'
   };
@@ -137,7 +137,7 @@ const getOfferPhotos = (container, photos) => {
   container.append(fragment);
 };
 
-const offerSelector = (selector, action, elem, task, selectAll) => {
+const selectOffer = (selector, action, elem, task, selectAll) => {
   const {TEXT_CONTENT, TEXT_CONTENT_TASK, INNER_HTML, SRC, PHOTOS, FEATURES, TWO_ELEM_INNER_HTML, TWO_ELEM_TEXT_CONTENT} = OfferSelectorAction;
   let result;
   if (!elem) {
@@ -172,7 +172,7 @@ const offerSelector = (selector, action, elem, task, selectAll) => {
   }
 };
 const changeAttributes = (action, attribute, ...list) => {
-  const {ADD, DEL} = AttributesAaction;
+  const {ADD, DEL} = AttributesAction;
   switch (action) {
     case ADD:
       for (let i = 0; i < list.length; i++){
@@ -247,10 +247,7 @@ const blockButton = (button, status, text) => {
   button.textContent = text;
 };
 
-const isEscapeKey = (evt) => {
-  const result = evt.key === 'Escape';
-  return result;
-};
+const checkIsEscapeKey = (evt) => evt.key === 'Escape';
 
 function debounce (callback, timeoutDelay = RERENDER_DELAY) {
   let timeoutId;
@@ -268,7 +265,7 @@ export {
   getOfferTime,
   getOfferFeatures,
   getOfferPhotos,
-  offerSelector,
+  selectOffer,
   changeAttributes,
   mapFormfields,
   getCoordinateObject,
@@ -277,6 +274,6 @@ export {
   getСitiesScale,
   resetMap,
   getStringCoordinates,
-  isEscapeKey,
+  checkIsEscapeKey,
   debounce,
 };
