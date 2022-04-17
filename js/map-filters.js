@@ -33,8 +33,9 @@ const checkFeatures = (option, data) => {
 };
 
 const applyFilter = (data, select, features) => {
+  const {ALL_ELEMENTS} = FiltersOptions;
   const option = document.querySelector(select);
-  if (option.value === 'any' || option.checked === false) {
+  if (option.value === ALL_ELEMENTS || option.checked === false) {
     return true;
   }
   if (features) {
