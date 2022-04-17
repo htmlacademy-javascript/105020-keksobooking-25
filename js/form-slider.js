@@ -38,6 +38,7 @@ const sliderPriceUpdate = (callback) => {
 
 const resetSlider = () => {
   sliderPrice.noUiSlider.set(DEFAULT_VALUE_PRICE);
+  valuePrice.placeholder = DEFAULT_VALUE_PRICE;
   valuePrice.value = '';
 };
 
