@@ -23,6 +23,10 @@ import {
   mapFilters,
 } from './map-filters.js';
 
+import {
+  resetDivPreview,
+} from './form-image.js';
+
 const PinOptions = {
   MAIN_PIN: {
     url: 'img/main-pin.svg',
@@ -103,9 +107,11 @@ const resetTokyoMap = () => {
     }, 0);
   }());
 };
-
+//TODO
 resetButton.addEventListener('click', () => {
   resetTokyoMap();
+  resetDivPreview();
+  clearAddMarkersMap();
 });
 
 const markerGroup = L.layerGroup().addTo(map);
@@ -127,29 +133,15 @@ function onMapCreateMarker (point) {
     .bindPopup(adsGeneration(point));
 }
 
-const clearAddMarkersMap = () => {
+function clearAddMarkersMap () {
   markerGroup.clearLayers();
   addMarkersMap(arrayObjectDataMap);
-};
+}
 
-const housingType = document.querySelector('#housing-type');
-housingType.addEventListener('change', debounce(clearAddMarkersMap));
-
-const housingPrice = document.querySelector('#housing-price');
-housingPrice.addEventListener('change', debounce(clearAddMarkersMap));
-
-const housingRooms = document.querySelector('#housing-rooms');
-housingRooms.addEventListener('change', debounce(clearAddMarkersMap));
-
-const housingGuests = document.querySelector('#housing-guests');
-housingGuests.addEventListener('change', debounce(clearAddMarkersMap));
-
-const housingFeatures = document.querySelector('#housing-features');
-const featuresInputs = housingFeatures.querySelectorAll('input[name=features]');
-featuresInputs.forEach((elem) => {
-  elem.addEventListener('change', debounce(clearAddMarkersMap));
-});
+const formMapFilters = document.querySelector('.map__filters');
+formMapFilters.addEventListener('change', debounce(clearAddMarkersMap));
 
 export {
   resetTokyoMap,
+  clearAddMarkersMap,
 };

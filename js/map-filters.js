@@ -5,6 +5,7 @@ const FiltersOptions = {
     middle: {min: 10000, max: 50000, text: 'middle'},
     high: {max: 50000, text: 'high'},
   },
+  ALL_ELEMENTS: 'any'
 };
 
 const priceRange = (value, offerPrice) => {

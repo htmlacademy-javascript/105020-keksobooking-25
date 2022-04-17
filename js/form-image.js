@@ -4,12 +4,15 @@ const ImageOptions = {
     width: '40',
     height: '44',
     alt: 'Аватар пользователя',
+    src: 'img/muffin-grey.svg',
+    select: '#avatar',
 
   },
   IMAGES: {
     width: '70',
     height: '70',
     alt: 'Фотография жилья',
+    select: '#images',
   },
 };
 
@@ -20,9 +23,9 @@ const checkImage = (selector, previewImg,) => {
 
   const selectInput = () => {
     switch (selector) {
-      case '#avatar':
+      case AVATAR.select:
         return AVATAR;
-      case '#images':
+      case IMAGES.select:
         return IMAGES;
     }
   };
@@ -49,6 +52,22 @@ const checkImage = (selector, previewImg,) => {
   });
 };
 
+const resetDivPreview = () => {
+  const {AVATAR} = ImageOptions;
+  const avatar = document.querySelector('.ad-form-header__preview');
+  const img = document.createElement('img');
+  img.src = AVATAR.src;
+  img.width = AVATAR.width;
+  img.height = AVATAR.height;
+  img.alt = AVATAR.alt;
+  avatar.innerHTML = '';
+  avatar.appendChild(img);
+
+  const photo = document.querySelector('.ad-form__photo');
+  photo.innerHTML = '';
+};
+
 export {
   checkImage,
+  resetDivPreview,
 };

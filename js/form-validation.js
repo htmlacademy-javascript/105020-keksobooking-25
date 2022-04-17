@@ -12,13 +12,18 @@ import {
 } from './api.js';
 
 import {
+  clearAddMarkersMap,
+} from './map.js';
+
+import {
   openSuccessModal,
   openErrorModal,
 } from './modal.js';
 
 import {
   checkImage,
-} from './check-image.js';
+  resetDivPreview,
+} from './form-image.js';
 
 const
   RoomSelector = {
@@ -209,6 +214,8 @@ const setUserFormSubmit = (resetMap) => {
         () => {
           evt.target.reset();
           resetMap();
+          clearAddMarkersMap();
+          resetDivPreview();
           openSuccessModal();
         },
         () => {

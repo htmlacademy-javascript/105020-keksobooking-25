@@ -39,6 +39,8 @@ const Cities = {
 
 const ALERT_SHOW_TIME = 10000;
 
+const formMapFilters = document.querySelector('.map__filters');
+
 const checkNumber = (a, b) => {
   if (Math.sign(a) === NEGATIVE_NUM || Math.sign(b) === NEGATIVE_NUM) {
     throw new Error('Negative number is not allowed');
@@ -214,6 +216,8 @@ const resetMap = (pin, mapL, city) => {
   mapL.setView(
     getCoordinateObject(city),
     getСitiesScale(city));
+
+  formMapFilters.reset();
 };
 
 const showAlert = (message, bgColor = 'red', place = 'top') => {
