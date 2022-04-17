@@ -5,7 +5,7 @@ import {
   getOfferTime,
   getOfferFeatures,
   getOfferPhotos,
-  offerSelector,
+  selectOffer,
 } from './util.js';
 
 const adsGeneration = (point) => {
@@ -16,16 +16,16 @@ const adsGeneration = (point) => {
   const cardElement = cardTemplate.cloneNode(true);
   const select = (elem) => cardElement.querySelector(elem);
   const selectAll = (elem) => cardElement.querySelectorAll(elem);
-  offerSelector(select('.popup__title'), 'textContent', title);
-  offerSelector(select('.popup__description'), 'textContent', description);
-  offerSelector(select('.popup__text--address'), 'textContent', address);
-  offerSelector(select('.popup__text--price'), 'innerHTML', price, getOfferPriceTemplate);
-  offerSelector(select('.popup__type'), 'textContentTask', type, getOfferType);
-  offerSelector(select('.popup__avatar'), 'src', avatar);
-  offerSelector(select('.popup__photos'), 'photos', photos, getOfferPhotos);
-  offerSelector(select('.popup__text--capacity'), 'twoElemInnerHTML', [rooms, guests], getOfferСapacity);
-  offerSelector(select('.popup__text--time'), 'twoElemTextContent', [checkin, checkout], getOfferTime);
-  offerSelector(select('.popup__features'), 'features', features, getOfferFeatures, selectAll('.popup__feature'));
+  selectOffer(select('.popup__title'), 'textContent', title);
+  selectOffer(select('.popup__description'), 'textContent', description);
+  selectOffer(select('.popup__text--address'), 'textContent', address);
+  selectOffer(select('.popup__text--price'), 'innerHTML', price, getOfferPriceTemplate);
+  selectOffer(select('.popup__type'), 'textContentTask', type, getOfferType);
+  selectOffer(select('.popup__avatar'), 'src', avatar);
+  selectOffer(select('.popup__photos'), 'photos', photos, getOfferPhotos);
+  selectOffer(select('.popup__text--capacity'), 'twoElemInnerHTML', [rooms, guests], getOfferСapacity);
+  selectOffer(select('.popup__text--time'), 'twoElemTextContent', [checkin, checkout], getOfferTime);
+  selectOffer(select('.popup__features'), 'features', features, getOfferFeatures, selectAll('.popup__feature'));
   return cardElement;
 };
 

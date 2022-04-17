@@ -137,7 +137,7 @@ const getOfferPhotos = (container, photos) => {
   container.append(fragment);
 };
 
-const offerSelector = (selector, action, elem, task, selectAll) => {
+const selectOffer = (selector, action, elem, task, selectAll) => {
   const {TEXT_CONTENT, TEXT_CONTENT_TASK, INNER_HTML, SRC, PHOTOS, FEATURES, TWO_ELEM_INNER_HTML, TWO_ELEM_TEXT_CONTENT} = OfferSelectorAction;
   let result;
   if (!elem) {
@@ -265,7 +265,7 @@ export {
   getOfferTime,
   getOfferFeatures,
   getOfferPhotos,
-  offerSelector,
+  selectOffer,
   changeAttributes,
   mapFormfields,
   getCoordinateObject,
