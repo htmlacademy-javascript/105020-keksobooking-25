@@ -4,7 +4,7 @@ import {
 } from './form-accessibility.js';
 
 import {
-  getCoordinateObject,
+  getObjectCoordinates,
   getCityScale,
   resetMap,
   getStringCoordinates,
@@ -69,7 +69,7 @@ const map = L.map('map-canvas')
     });
   })
   .setView(
-    getCoordinateObject(CURRENT_CITY),
+    getObjectCoordinates(CURRENT_CITY),
     getCityScale(CURRENT_CITY));
 
 L.tileLayer(
@@ -92,7 +92,7 @@ const
   });
 
 const mainPinMarker = L.marker(
-  getCoordinateObject(CURRENT_CITY),
+  getObjectCoordinates(CURRENT_CITY),
   {
     draggable: true,
     icon: mainPinIcon,

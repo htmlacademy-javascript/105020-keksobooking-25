@@ -28,10 +28,10 @@ import {
 
 const
   RoomSelector = {
-    ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»', array: ['1']},
-    TWO: {num: '2', text: '2 комнаты', capacity: '«для 2 гостей» или «для 1 гостя»', array: ['2', '1']},
-    THREE: {num: '3', text: '3 комнаты', capacity: '«для 3 гостей», «для 2 гостей» или «для 1 гостя»', array: ['3', '2', '1']},
-    HUNDRED: {num: '100', text: '100 комнат', capacity: '«не для гостей»', array: ['0']},
+    ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»', option: ['1']},
+    TWO: {num: '2', text: '2 комнаты', capacity: '«для 2 гостей» или «для 1 гостя»', option: ['2', '1']},
+    THREE: {num: '3', text: '3 комнаты', capacity: '«для 3 гостей», «для 2 гостей» или «для 1 гостя»', option: ['3', '2', '1']},
+    HUNDRED: {num: '100', text: '100 комнат', capacity: '«не для гостей»', option: ['0']},
   },
   HousingSelector = {
     BUNGALOW: {price: '0', type: 'Бунгало', value: 'bungalow', text: 'минимальная цена за ночь 0'},
@@ -47,10 +47,10 @@ const
   };
 
 const roomOptions  = {
-  1: RoomSelector.ONE.array,
-  2: RoomSelector.TWO.array,
-  3: RoomSelector.THREE.array,
-  100: RoomSelector.HUNDRED.array,
+  1: RoomSelector.ONE.option,
+  2: RoomSelector.TWO.option,
+  3: RoomSelector.THREE.option,
+  100: RoomSelector.HUNDRED.option,
 };
 
 const housingOptions = {

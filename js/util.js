@@ -192,13 +192,13 @@ const mapFormFields = (options, main, secondary) => {
   return result;
 };
 
-const getCoordinateObject = (city) => {
+const getObjectCoordinates = (city) => {
   const result = {lat: Cities[city].lat, lng: Cities[city].lng};
   return result;
 };
 
 const getStringCoordinates = (city) => {
-  const coordinatesObject = getCoordinateObject(city);
+  const coordinatesObject = getObjectCoordinates(city);
   const result = `${coordinatesObject.lat}, ${coordinatesObject.lng}`;
   return result;
 };
@@ -207,11 +207,11 @@ const getCityScale = (city) => Cities[city].scale;
 
 const resetMap = (pin, mapL, city) => {
   pin.setLatLng(
-    getCoordinateObject(city),
+    getObjectCoordinates(city),
   );
 
   mapL.setView(
-    getCoordinateObject(city),
+    getObjectCoordinates(city),
     getCityScale(city));
 
   formMapFilters.reset();
@@ -265,7 +265,7 @@ export {
   selectOffer,
   changeAttributes,
   mapFormFields,
-  getCoordinateObject,
+  getObjectCoordinates,
   showAlert,
   blockButton,
   getCityScale,
