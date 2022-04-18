@@ -187,7 +187,7 @@ const changeAttributes = (action, attribute, ...list) => {
   }
 };
 
-const mapFormfields = (options, main, secondary) => {
+const mapFormFields = (options, main, secondary) => {
   const result = options[main.value].includes(secondary.value);
   return result;
 };
@@ -267,7 +267,7 @@ export {
   getOfferPhotos,
   selectOffer,
   changeAttributes,
-  mapFormfields,
+  mapFormFields,
   getCoordinateObject,
   showAlert,
   blockButton,

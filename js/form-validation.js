@@ -1,5 +1,5 @@
 import {
-  mapFormfields,
+  mapFormFields,
   blockButton,
 } from './util.js';
 
@@ -92,7 +92,7 @@ const validateForm = () => {
     titleOptions.TEXT,
   );
 
-  const validateRoom = () => mapFormfields(roomOptions, roomNumber, roomCapacity);
+  const validateRoom = () => mapFormFields(roomOptions, roomNumber, roomCapacity);
 
   const getRoomNumberErrorMessage = () => {
     const {ONE, TWO, THREE, HUNDRED} = RoomSelector;
