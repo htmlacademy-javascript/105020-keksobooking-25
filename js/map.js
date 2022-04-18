@@ -4,15 +4,15 @@ import {
 } from './form-accessibility.js';
 
 import {
-  getCoordinateObject,
-  getСitiesScale,
+  getObjectCoordinates,
+  getCityScale,
   resetMap,
   getStringCoordinates,
   debounce
 } from './util.js';
 
 import {
-  adsGeneration,
+  generateAds,
 } from './ads-generation.js';
 
 import {
@@ -69,8 +69,8 @@ const map = L.map('map-canvas')
     });
   })
   .setView(
-    getCoordinateObject(CURRENT_CITY),
-    getСitiesScale(CURRENT_CITY));
+    getObjectCoordinates(CURRENT_CITY),
+    getCityScale(CURRENT_CITY));
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
@@ -92,7 +92,7 @@ const
   });
 
 const mainPinMarker = L.marker(
-  getCoordinateObject(CURRENT_CITY),
+  getObjectCoordinates(CURRENT_CITY),
   {
     draggable: true,
     icon: mainPinIcon,
@@ -140,7 +140,7 @@ function onMapCreateMarker (point) {
 
   marker
     .addTo(markerGroup)
-    .bindPopup(adsGeneration(point));
+    .bindPopup(generateAds(point));
 }
 
 function clearAddMarkersMap () {

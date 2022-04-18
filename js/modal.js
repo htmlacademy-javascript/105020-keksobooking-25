@@ -11,49 +11,49 @@ const
   errorElement = errorTemplate.cloneNode(true);
 
 // success
-const modalRemoveSuccessElement = () => {
+const deleteModalSuccessElement = () => {
   document.body.removeChild(successElement);
   onSuccessModalClose();
 };
 
 const onSuccessEscKeydown = (evt) => {
   if (checkIsEscapeKey(evt)) {
-    modalRemoveSuccessElement();
+    deleteModalSuccessElement();
   }
 };
 
 const openSuccessModal = () => {
   document.body.appendChild(successElement);
   document.addEventListener('keydown', onSuccessEscKeydown);
-  successElement.addEventListener('click', modalRemoveSuccessElement);
+  successElement.addEventListener('click', deleteModalSuccessElement);
 };
 
 function onSuccessModalClose () {
   document.removeEventListener('keydown', onSuccessEscKeydown);
-  successElement.removeEventListener('click', modalRemoveSuccessElement);
+  successElement.removeEventListener('click', deleteModalSuccessElement);
 }
 
 // error
-const modalRemoveErrorElement = () => {
+const deleteModalErrorElement = () => {
   document.body.removeChild(errorElement);
   onErrorModalClose();
 };
 
 const onErrorEscKeydown = (evt) => {
   if (checkIsEscapeKey(evt)) {
-    modalRemoveErrorElement();
+    deleteModalErrorElement();
   }
 };
 
 const openErrorModal = () => {
   document.body.appendChild(errorElement);
   document.addEventListener('keydown', onErrorEscKeydown);
-  errorElement.addEventListener('click', modalRemoveErrorElement);
+  errorElement.addEventListener('click', deleteModalErrorElement);
 };
 
 function onErrorModalClose () {
   document.removeEventListener('keydown', onErrorEscKeydown);
-  errorElement.removeEventListener('click', modalRemoveErrorElement);
+  errorElement.removeEventListener('click', deleteModalErrorElement);
 }
 
 export {

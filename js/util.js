@@ -9,11 +9,9 @@ const
   OfferSelectorAction = {
     TEXT_CONTENT: 'textContent',
     TEXT_CONTENT_TASK: 'textContentTask',
-    INNER_HTML: 'innerHTML',
     SRC: 'src',
     PHOTOS: 'photos',
     FEATURES: 'features',
-    TWO_ELEM_INNER_HTML: 'twoElemInnerHTML',
     TWO_ELEM_TEXT_CONTENT: 'twoElemTextContent',
   },
   AttributesAction = {
@@ -60,15 +58,9 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getOfferPriceTemplate = (price) => {
-  const result = `${price} <span>₽/ночь</span>`;
-  return result;
-};
+const getOfferPriceTemplate = (price) => `${price} ₽/ночь`;
 
-const getOfferType = (type) => {
-  const result = housingTypes[type];
-  return result;
-};
+const getOfferType = (type) => housingTypes[type];
 
 const getDeclinationRooms = (rooms) => {
   switch (true) {
@@ -81,38 +73,27 @@ const getDeclinationRooms = (rooms) => {
   }
 };
 
-const getDeclinationGuests = (guests) => {
-  const result =  guests > 1 ? 'гостей' : 'гостя';
-  return result;
-};
+const getDeclinationGuests = (guests) => guests > 1 ? 'гостей' : 'гостя';
 
-const getOfferСapacity = (rooms, guests) => {
-  let result;
+const getOfferCapacity = (rooms, guests) => {
   switch (true) {
     case (!rooms):
-      result = `Для ${guests} ${getDeclinationGuests(guests)}`;
-      return result;
+      return `Для ${guests} ${getDeclinationGuests(guests)}`;
     case (!guests):
-      result = `${rooms} ${getDeclinationRooms(rooms)}`;
-      return result;
+      return  `${rooms} ${getDeclinationRooms(rooms)}`;
     default:
-      result = `${rooms} ${getDeclinationRooms(rooms)} для ${guests} ${getDeclinationGuests(guests)}`;
-      return result;
+      return `${rooms} ${getDeclinationRooms(rooms)} для ${guests} ${getDeclinationGuests(guests)}`;
   }
 };
 
 const getOfferTime = (checkin, checkout) => {
-  let result;
   switch (true) {
     case (!checkin):
-      result = `Выезд до ${checkout}`;
-      return result;
+      return `Выезд до ${checkout}`;
     case (!checkout):
-      result = `Заезд после ${checkin}`;
-      return result;
+      return `Заезд после ${checkin}`;
     default:
-      result = `Заезд после ${checkin}, выезд до ${checkout}`;
-      return result;
+      return `Заезд после ${checkin}, выезд до ${checkout}`;
   }
 };
 
@@ -138,48 +119,37 @@ const getOfferPhotos = (container, photos) => {
 };
 
 const selectOffer = (selector, action, elem, task, selectAll) => {
-  const {TEXT_CONTENT, TEXT_CONTENT_TASK, INNER_HTML, SRC, PHOTOS, FEATURES, TWO_ELEM_INNER_HTML, TWO_ELEM_TEXT_CONTENT} = OfferSelectorAction;
-  let result;
   if (!elem) {
-    result = selector.remove();
-    return result;
+    return selector.remove();
   }
   switch (action) {
-    case TEXT_CONTENT:
-      result = selector.textContent = elem;
-      return result;
-    case TEXT_CONTENT_TASK:
-      result = selector.textContent = task(elem);
-      return result;
-    case INNER_HTML:
-      result = selector.innerHTML = task(elem);
-      return result;
-    case SRC:
-      result = selector.src = elem;
-      return result;
-    case PHOTOS:
-      result = task(selector, elem);
-      return result;
-    case FEATURES:
-      result = task(selectAll, elem);
-      return result;
-    case TWO_ELEM_INNER_HTML:
-      result = selector.innerHTML = task(...elem);
-      return result;
-    case TWO_ELEM_TEXT_CONTENT:
-      result = selector.textContent = task(...elem);
-      return result;
+    case OfferSelectorAction.TEXT_CONTENT:
+      selector.textContent = elem;
+      return selector.textContent;
+    case OfferSelectorAction.TEXT_CONTENT_TASK:
+      selector.textContent = task(elem);
+      return selector.textContent;
+    case OfferSelectorAction.SRC:
+      selector.src = elem;
+      return selector.src;
+    case OfferSelectorAction.PHOTOS:
+      return task(selector, elem);
+    case OfferSelectorAction.FEATURES:
+      return task(selectAll, elem);
+    case OfferSelectorAction.TWO_ELEM_TEXT_CONTENT:
+      selector.textContent = task(...elem);
+      return selector.textContent;
   }
 };
+
 const changeAttributes = (action, attribute, ...list) => {
-  const {ADD, DEL} = AttributesAction;
   switch (action) {
-    case ADD:
+    case AttributesAction.ADD:
       for (let i = 0; i < list.length; i++){
         list[i].forEach((elem) => elem.setAttribute(attribute[0], attribute[1]));
       }
       break;
-    case DEL:
+    case AttributesAction.DEL:
       for (let i = 0; i < list.length; i++){
         list[i].forEach((elem) => elem.removeAttribute(attribute[0]));
       }
@@ -187,35 +157,28 @@ const changeAttributes = (action, attribute, ...list) => {
   }
 };
 
-const mapFormfields = (options, main, secondary) => {
-  const result = options[main.value].includes(secondary.value);
-  return result;
-};
+const mapFormFields = (options, main, secondary) => options[main.value].includes(secondary.value);
 
-const getCoordinateObject = (city) => {
+const getObjectCoordinates = (city) => {
   const result = {lat: Cities[city].lat, lng: Cities[city].lng};
   return result;
 };
 
 const getStringCoordinates = (city) => {
-  const coordinatesObject = getCoordinateObject(city);
-  const result = `${coordinatesObject.lat}, ${coordinatesObject.lng}`;
-  return result;
+  const coordinatesObject = getObjectCoordinates(city);
+  return `${coordinatesObject.lat}, ${coordinatesObject.lng}`;
 };
 
-const getСitiesScale = (city) => {
-  const result = Cities[city].scale;
-  return result;
-};
+const getCityScale = (city) => Cities[city].scale;
 
 const resetMap = (pin, mapL, city) => {
   pin.setLatLng(
-    getCoordinateObject(city),
+    getObjectCoordinates(city),
   );
 
   mapL.setView(
-    getCoordinateObject(city),
-    getСitiesScale(city));
+    getObjectCoordinates(city),
+    getCityScale(city));
 
   formMapFilters.reset();
 };
@@ -232,9 +195,7 @@ const showAlert = (message, bgColor = 'red', place = 'top') => {
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = bgColor;
   alertContainer.style.color = 'white';
-
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {
@@ -261,17 +222,17 @@ export {
   getRandomPositiveInteger,
   getOfferPriceTemplate,
   getOfferType,
-  getOfferСapacity,
+  getOfferCapacity,
   getOfferTime,
   getOfferFeatures,
   getOfferPhotos,
   selectOffer,
   changeAttributes,
-  mapFormfields,
-  getCoordinateObject,
+  mapFormFields,
+  getObjectCoordinates,
   showAlert,
   blockButton,
-  getСitiesScale,
+  getCityScale,
   resetMap,
   getStringCoordinates,
   checkIsEscapeKey,

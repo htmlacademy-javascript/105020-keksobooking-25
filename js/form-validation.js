@@ -1,10 +1,10 @@
 import {
-  mapFormfields,
+  mapFormFields,
   blockButton,
 } from './util.js';
 
 import {
-  sliderPriceUpdate,
+  refreshSliderPrice,
   resetSlider,
 } from './form-slider.js';
 
@@ -28,10 +28,10 @@ import {
 
 const
   RoomSelector = {
-    ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»', array: ['1']},
-    TWO: {num: '2', text: '2 комнаты', capacity: '«для 2 гостей» или «для 1 гостя»', array: ['2', '1']},
-    THREE: {num: '3', text: '3 комнаты', capacity: '«для 3 гостей», «для 2 гостей» или «для 1 гостя»', array: ['3', '2', '1']},
-    HUNDRED: {num: '100', text: '100 комнат', capacity: '«не для гостей»', array: ['0']},
+    ONE: {num: '1', text: '1 комната', capacity: '«для 1 гостя»', option: ['1']},
+    TWO: {num: '2', text: '2 комнаты', capacity: '«для 2 гостей» или «для 1 гостя»', option: ['2', '1']},
+    THREE: {num: '3', text: '3 комнаты', capacity: '«для 3 гостей», «для 2 гостей» или «для 1 гостя»', option: ['3', '2', '1']},
+    HUNDRED: {num: '100', text: '100 комнат', capacity: '«не для гостей»', option: ['0']},
   },
   HousingSelector = {
     BUNGALOW: {price: '0', type: 'Бунгало', value: 'bungalow', text: 'минимальная цена за ночь 0'},
@@ -47,10 +47,10 @@ const
   };
 
 const roomOptions  = {
-  1: RoomSelector.ONE.array,
-  2: RoomSelector.TWO.array,
-  3: RoomSelector.THREE.array,
-  100: RoomSelector.HUNDRED.array,
+  1: RoomSelector.ONE.option,
+  2: RoomSelector.TWO.option,
+  3: RoomSelector.THREE.option,
+  100: RoomSelector.HUNDRED.option,
 };
 
 const housingOptions = {
@@ -81,10 +81,7 @@ const pristine = new Pristine(adForm, {
 });
 
 const validateForm = () => {
-  const validateTitle = (value) => {
-    const result = value.length >= titleOptions.MIN && value.length <= titleOptions.MAX;
-    return result;
-  };
+  const validateTitle = (value) => value.length >= titleOptions.MIN && value.length <= titleOptions.MAX;
 
   pristine.addValidator(
     adForm.querySelector('#title'),
@@ -92,33 +89,31 @@ const validateForm = () => {
     titleOptions.TEXT,
   );
 
-  const validateRoom = () => mapFormfields(roomOptions, roomNumber, roomCapacity);
+  const validateRoom = () => mapFormFields(roomOptions, roomNumber, roomCapacity);
 
   const getRoomNumberErrorMessage = () => {
-    const {ONE, TWO, THREE, HUNDRED} = RoomSelector;
     switch (roomNumber.value) {
-      case ONE.num:
-        return ONE.text;
-      case TWO.num:
-        return TWO.text;
-      case THREE.num:
-        return THREE.text;
-      case HUNDRED.num:
-        return HUNDRED.text;
+      case RoomSelector.ONE.num:
+        return RoomSelector.ONE.text;
+      case RoomSelector.TWO.num:
+        return RoomSelector.TWO.text;
+      case RoomSelector.THREE.num:
+        return RoomSelector.THREE.text;
+      case RoomSelector.HUNDRED.num:
+        return RoomSelector.HUNDRED.text;
     }
   };
 
   const getRoomCapacityErrorMessage = () => {
-    const {ONE, TWO, THREE, HUNDRED} = RoomSelector;
     switch (roomNumber.value) {
-      case ONE.num:
-        return ONE.capacity;
-      case TWO.num:
-        return TWO.capacity;
-      case THREE.num:
-        return THREE.capacity;
-      case HUNDRED.num:
-        return HUNDRED.capacity;
+      case RoomSelector.ONE.num:
+        return RoomSelector.ONE.capacity;
+      case RoomSelector.TWO.num:
+        return RoomSelector.TWO.capacity;
+      case RoomSelector.THREE.num:
+        return RoomSelector.THREE.capacity;
+      case RoomSelector.HUNDRED.num:
+        return RoomSelector.HUNDRED.capacity;
     }
   };
 
@@ -142,34 +137,32 @@ const validateForm = () => {
   };
 
   const getHousingTypeErrorMessage = () => {
-    const {BUNGALOW, FLAT, HOTEL, HOUSE, PALACE} = HousingSelector;
     switch (housingType.value) {
-      case BUNGALOW.value:
-        return BUNGALOW.type;
-      case FLAT.value:
-        return FLAT.type;
-      case HOTEL.value:
-        return HOTEL.type;
-      case HOUSE.value:
-        return HOUSE.type;
-      case PALACE.value:
-        return PALACE.type;
+      case HousingSelector.BUNGALOW.value:
+        return HousingSelector.BUNGALOW.type;
+      case HousingSelector.FLAT.value:
+        return HousingSelector.FLAT.type;
+      case HousingSelector.HOTEL.value:
+        return HousingSelector.HOTEL.type;
+      case HousingSelector.HOUSE.value:
+        return HousingSelector.HOUSE.type;
+      case HousingSelector.PALACE.value:
+        return HousingSelector.PALACE.type;
     }
   };
 
   const getHousingPriceErrorMessage = () => {
-    const {BUNGALOW, FLAT, HOTEL, HOUSE, PALACE} = HousingSelector;
     switch (housingType.value) {
-      case BUNGALOW.value:
-        return BUNGALOW.text;
-      case FLAT.value:
-        return FLAT.text;
-      case HOTEL.value:
-        return HOTEL.text;
-      case HOUSE.value:
-        return HOUSE.text;
-      case PALACE.value:
-        return PALACE.text;
+      case HousingSelector.BUNGALOW.value:
+        return HousingSelector.BUNGALOW.text;
+      case HousingSelector.FLAT.value:
+        return HousingSelector.FLAT.text;
+      case HousingSelector.HOTEL.value:
+        return HousingSelector.HOTEL.text;
+      case HousingSelector.HOUSE.value:
+        return HousingSelector.HOUSE.text;
+      case HousingSelector.PALACE.value:
+        return HousingSelector.PALACE.text;
     }
   };
 
@@ -186,7 +179,7 @@ const validateForm = () => {
     .querySelectorAll('#type, #price')
     .forEach((item) => item.addEventListener('change', onHousingChange));
 
-  sliderPriceUpdate(onHousingChange);
+  refreshSliderPrice(onHousingChange);
 
   const onTimeInChange = () => {
     timeOut.value = timeIn.value;
