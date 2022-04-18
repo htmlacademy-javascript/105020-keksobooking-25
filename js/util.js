@@ -139,36 +139,32 @@ const getOfferPhotos = (container, photos) => {
 
 const selectOffer = (selector, action, elem, task, selectAll) => {
   const {TEXT_CONTENT, TEXT_CONTENT_TASK, INNER_HTML, SRC, PHOTOS, FEATURES, TWO_ELEM_INNER_HTML, TWO_ELEM_TEXT_CONTENT} = OfferSelectorAction;
-  let result;
   if (!elem) {
-    result = selector.remove();
-    return result;
+    return selector.remove();
   }
   switch (action) {
     case TEXT_CONTENT:
-      result = selector.textContent = elem;
-      return result;
+      selector.textContent = elem;
+      return selector.textContent;
     case TEXT_CONTENT_TASK:
-      result = selector.textContent = task(elem);
-      return result;
+      selector.textContent = task(elem);
+      return selector.textContent;
     case INNER_HTML:
-      result = selector.innerHTML = task(elem);
-      return result;
+      selector.innerHTML = task(elem);
+      return selector.innerHTML;
     case SRC:
-      result = selector.src = elem;
-      return result;
+      selector.src = elem;
+      return selector.src;
     case PHOTOS:
-      result = task(selector, elem);
-      return result;
+      return task(selector, elem);
     case FEATURES:
-      result = task(selectAll, elem);
-      return result;
+      return task(selectAll, elem);
     case TWO_ELEM_INNER_HTML:
-      result = selector.innerHTML = task(...elem);
-      return result;
+      selector.innerHTML = task(...elem);
+      return selector.innerHTML;
     case TWO_ELEM_TEXT_CONTENT:
-      result = selector.textContent = task(...elem);
-      return result;
+      selector.textContent = task(...elem);
+      return selector.textContent;
   }
 };
 const changeAttributes = (action, attribute, ...list) => {
