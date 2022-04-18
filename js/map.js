@@ -5,7 +5,7 @@ import {
 
 import {
   getCoordinateObject,
-  getСitiesScale,
+  getCityScale,
   resetMap,
   getStringCoordinates,
   debounce
@@ -70,7 +70,7 @@ const map = L.map('map-canvas')
   })
   .setView(
     getCoordinateObject(CURRENT_CITY),
-    getСitiesScale(CURRENT_CITY));
+    getCityScale(CURRENT_CITY));
 
 L.tileLayer(
   'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',

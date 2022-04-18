@@ -29,4 +29,6 @@ const adsGeneration = (point) => {
   return cardElement;
 };
 
-export { adsGeneration };
+export {
+  adsGeneration,
+};

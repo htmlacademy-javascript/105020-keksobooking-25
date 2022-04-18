@@ -203,10 +203,7 @@ const getStringCoordinates = (city) => {
   return result;
 };
 
-const getСitiesScale = (city) => {
-  const result = Cities[city].scale;
-  return result;
-};
+const getCityScale = (city) => Cities[city].scale;
 
 const resetMap = (pin, mapL, city) => {
   pin.setLatLng(
@@ -215,7 +212,7 @@ const resetMap = (pin, mapL, city) => {
 
   mapL.setView(
     getCoordinateObject(city),
-    getСitiesScale(city));
+    getCityScale(city));
 
   formMapFilters.reset();
 };
@@ -271,7 +268,7 @@ export {
   getCoordinateObject,
   showAlert,
   blockButton,
-  getСitiesScale,
+  getCityScale,
   resetMap,
   getStringCoordinates,
   checkIsEscapeKey,
