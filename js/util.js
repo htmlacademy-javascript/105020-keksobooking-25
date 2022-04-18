@@ -60,15 +60,9 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getOfferPriceTemplate = (price) => {
-  const result = `${price} <span>₽/ночь</span>`;
-  return result;
-};
+const getOfferPriceTemplate = (price) => `${price} <span>₽/ночь</span>`;
 
-const getOfferType = (type) => {
-  const result = housingTypes[type];
-  return result;
-};
+const getOfferType = (type) => housingTypes[type];
 
 const getDeclinationRooms = (rooms) => {
   switch (true) {
@@ -81,38 +75,27 @@ const getDeclinationRooms = (rooms) => {
   }
 };
 
-const getDeclinationGuests = (guests) => {
-  const result =  guests > 1 ? 'гостей' : 'гостя';
-  return result;
-};
+const getDeclinationGuests = (guests) => guests > 1 ? 'гостей' : 'гостя';
 
 const getOfferCapacity = (rooms, guests) => {
-  let result;
   switch (true) {
     case (!rooms):
-      result = `Для ${guests} ${getDeclinationGuests(guests)}`;
-      return result;
+      return `Для ${guests} ${getDeclinationGuests(guests)}`;
     case (!guests):
-      result = `${rooms} ${getDeclinationRooms(rooms)}`;
-      return result;
+      return  `${rooms} ${getDeclinationRooms(rooms)}`;
     default:
-      result = `${rooms} ${getDeclinationRooms(rooms)} для ${guests} ${getDeclinationGuests(guests)}`;
-      return result;
+      return `${rooms} ${getDeclinationRooms(rooms)} для ${guests} ${getDeclinationGuests(guests)}`;
   }
 };
 
 const getOfferTime = (checkin, checkout) => {
-  let result;
   switch (true) {
     case (!checkin):
-      result = `Выезд до ${checkout}`;
-      return result;
+      return `Выезд до ${checkout}`;
     case (!checkout):
-      result = `Заезд после ${checkin}`;
-      return result;
+      return `Заезд после ${checkin}`;
     default:
-      result = `Заезд после ${checkin}, выезд до ${checkout}`;
-      return result;
+      return `Заезд после ${checkin}, выезд до ${checkout}`;
   }
 };
 
@@ -183,10 +166,7 @@ const changeAttributes = (action, attribute, ...list) => {
   }
 };
 
-const mapFormFields = (options, main, secondary) => {
-  const result = options[main.value].includes(secondary.value);
-  return result;
-};
+const mapFormFields = (options, main, secondary) => options[main.value].includes(secondary.value);
 
 const getObjectCoordinates = (city) => {
   const result = {lat: Cities[city].lat, lng: Cities[city].lng};
@@ -195,8 +175,7 @@ const getObjectCoordinates = (city) => {
 
 const getStringCoordinates = (city) => {
   const coordinatesObject = getObjectCoordinates(city);
-  const result = `${coordinatesObject.lat}, ${coordinatesObject.lng}`;
-  return result;
+  return `${coordinatesObject.lat}, ${coordinatesObject.lng}`;
 };
 
 const getCityScale = (city) => Cities[city].scale;

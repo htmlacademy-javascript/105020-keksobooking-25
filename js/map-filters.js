@@ -20,10 +20,7 @@ const checkPriceRange = (value, offerPrice) => {
   }
 };
 
-const checkEquality = (option, data) => {
-  const result = Number(option) === Number(data);
-  return result;
-};
+const checkEquality = (option, data) => Number(option) === Number(data);
 
 const checkFeatures = (option, data) => {
   if (data === undefined) {
