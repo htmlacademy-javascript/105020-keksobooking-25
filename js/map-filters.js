@@ -9,14 +9,13 @@ const FiltersOptions = {
 };
 
 const checkPriceRange = (value, offerPrice) => {
-  const {PRICE} = FiltersOptions;
   switch (value) {
-    case PRICE.low.text:
-      return offerPrice < PRICE.low.max;
-    case PRICE.middle.text:
-      return offerPrice >= PRICE.middle.min && offerPrice < PRICE.middle.max;
-    case PRICE.high.text:
-      return offerPrice > PRICE.high.max;
+    case FiltersOptions.PRICE.low.text:
+      return offerPrice < FiltersOptions.PRICE.low.max;
+    case FiltersOptions.PRICE.middle.text:
+      return offerPrice >= FiltersOptions.PRICE.middle.min && offerPrice < FiltersOptions.PRICE.middle.max;
+    case FiltersOptions.PRICE.high.text:
+      return offerPrice > FiltersOptions.PRICE.high.max;
   }
 };
 
@@ -30,9 +29,8 @@ const checkFeatures = (option, data) => {
 };
 
 const applyFilter = (data, select, features) => {
-  const {ALL_ELEMENTS} = FiltersOptions;
   const option = document.querySelector(select);
-  if (option.value === ALL_ELEMENTS || option.checked === false) {
+  if (option.value === FiltersOptions.ALL_ELEMENTS || option.checked === false) {
     return true;
   }
   if (features) {
@@ -61,7 +59,6 @@ const checkWasher = (data) => applyFilter(data, '#filter-washer', 'features');
 const checkConditioner = (data) => applyFilter(data, '#filter-conditioner', 'features');
 
 const mapFilters = (data) => {
-  const {PIN_MAX} = FiltersOptions;
   const result = data
     .slice()
     .filter(checkType)
@@ -73,7 +70,7 @@ const mapFilters = (data) => {
     .filter(checkParking)
     .filter(checkWasher)
     .filter(checkConditioner)
-    .slice(0, PIN_MAX);
+    .slice(0, FiltersOptions.PIN_MAX);
   return result;
 };
 

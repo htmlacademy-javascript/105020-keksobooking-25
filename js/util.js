@@ -9,11 +9,9 @@ const
   OfferSelectorAction = {
     TEXT_CONTENT: 'textContent',
     TEXT_CONTENT_TASK: 'textContentTask',
-    INNER_HTML: 'innerHTML',
     SRC: 'src',
     PHOTOS: 'photos',
     FEATURES: 'features',
-    TWO_ELEM_INNER_HTML: 'twoElemInnerHTML',
     TWO_ELEM_TEXT_CONTENT: 'twoElemTextContent',
   },
   AttributesAction = {
@@ -60,7 +58,7 @@ const getRandomPositiveInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const getOfferPriceTemplate = (price) => `${price} <span>₽/ночь</span>`;
+const getOfferPriceTemplate = (price) => `${price} ₽/ночь`;
 
 const getOfferType = (type) => housingTypes[type];
 
@@ -121,44 +119,37 @@ const getOfferPhotos = (container, photos) => {
 };
 
 const selectOffer = (selector, action, elem, task, selectAll) => {
-  const {TEXT_CONTENT, TEXT_CONTENT_TASK, INNER_HTML, SRC, PHOTOS, FEATURES, TWO_ELEM_INNER_HTML, TWO_ELEM_TEXT_CONTENT} = OfferSelectorAction;
   if (!elem) {
     return selector.remove();
   }
   switch (action) {
-    case TEXT_CONTENT:
+    case OfferSelectorAction.TEXT_CONTENT:
       selector.textContent = elem;
       return selector.textContent;
-    case TEXT_CONTENT_TASK:
+    case OfferSelectorAction.TEXT_CONTENT_TASK:
       selector.textContent = task(elem);
       return selector.textContent;
-    case INNER_HTML:
-      selector.innerHTML = task(elem);
-      return selector.innerHTML;
-    case SRC:
+    case OfferSelectorAction.SRC:
       selector.src = elem;
       return selector.src;
-    case PHOTOS:
+    case OfferSelectorAction.PHOTOS:
       return task(selector, elem);
-    case FEATURES:
+    case OfferSelectorAction.FEATURES:
       return task(selectAll, elem);
-    case TWO_ELEM_INNER_HTML:
-      selector.innerHTML = task(...elem);
-      return selector.innerHTML;
-    case TWO_ELEM_TEXT_CONTENT:
+    case OfferSelectorAction.TWO_ELEM_TEXT_CONTENT:
       selector.textContent = task(...elem);
       return selector.textContent;
   }
 };
+
 const changeAttributes = (action, attribute, ...list) => {
-  const {ADD, DEL} = AttributesAction;
   switch (action) {
-    case ADD:
+    case AttributesAction.ADD:
       for (let i = 0; i < list.length; i++){
         list[i].forEach((elem) => elem.setAttribute(attribute[0], attribute[1]));
       }
       break;
-    case DEL:
+    case AttributesAction.DEL:
       for (let i = 0; i < list.length; i++){
         list[i].forEach((elem) => elem.removeAttribute(attribute[0]));
       }
@@ -204,9 +195,7 @@ const showAlert = (message, bgColor = 'red', place = 'top') => {
   alertContainer.style.textAlign = 'center';
   alertContainer.style.backgroundColor = bgColor;
   alertContainer.style.color = 'white';
-
   alertContainer.textContent = message;
-
   document.body.append(alertContainer);
 
   setTimeout(() => {

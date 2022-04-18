@@ -23,46 +23,45 @@ const
 const checkImage = (selector, previewImg,) => {
   const fileChooser = document.querySelector(selector);
   const preview = document.querySelector(previewImg);
-  const {AVATAR, IMAGES} = ImageOptions;
 
   const selectInput = () => {
     switch (selector) {
-      case AVATAR.select:
-        return AVATAR;
-      case IMAGES.select:
-        return IMAGES;
+      case ImageOptions.AVATAR.select:
+        return ImageOptions.AVATAR;
+      case ImageOptions.IMAGES.select:
+        return ImageOptions.IMAGES;
     }
   };
 
   fileChooser.addEventListener('change', () => {
     const file = fileChooser.files[0];
-    const fileName = file.name.toLowerCase();
+    if (file) {
+      const fileName = file.name.toLowerCase();
+      const matches = FILE_TYPES.some((it) => {
+        const result = fileName.endsWith(it);
+        return result;
+      });
 
-    const matches = FILE_TYPES.some((it) => {
-      const result = fileName.endsWith(it);
-      return result;
-    });
-
-    if (matches) {
-      const img = document.createElement('img');
-      const input = selectInput();
-      img.src = URL.createObjectURL(file);
-      img.width = input.width;
-      img.height = input.height;
-      img.alt = input.alt;
-      preview.innerHTML = '';
-      preview.appendChild(img);
+      if (matches) {
+        const img = document.createElement('img');
+        const input = selectInput();
+        img.src = URL.createObjectURL(file);
+        img.width = input.width;
+        img.height = input.height;
+        img.alt = input.alt;
+        preview.innerHTML = '';
+        preview.appendChild(img);
+      }
     }
   });
 };
 
 const resetDivPreview = () => {
-  const {AVATAR} = ImageOptions;
   const img = document.createElement('img');
-  img.src = AVATAR.src;
-  img.width = AVATAR.width;
-  img.height = AVATAR.height;
-  img.alt = AVATAR.alt;
+  img.src = ImageOptions.AVATAR.src;
+  img.width = ImageOptions.AVATAR.width;
+  img.height = ImageOptions.AVATAR.height;
+  img.alt = ImageOptions.AVATAR.alt;
   avatar.innerHTML = '';
   avatar.appendChild(img);
   photo.innerHTML = '';
