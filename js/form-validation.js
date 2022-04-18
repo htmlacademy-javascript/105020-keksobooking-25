@@ -4,7 +4,7 @@ import {
 } from './util.js';
 
 import {
-  sliderPriceUpdate,
+  refreshSliderPrice,
   resetSlider,
 } from './form-slider.js';
 
@@ -186,7 +186,7 @@ const validateForm = () => {
     .querySelectorAll('#type, #price')
     .forEach((item) => item.addEventListener('change', onHousingChange));
 
-  sliderPriceUpdate(onHousingChange);
+  refreshSliderPrice(onHousingChange);
 
   const onTimeInChange = () => {
     timeOut.value = timeIn.value;

@@ -29,7 +29,7 @@ const createSlider = () => {
   valuePrice.addEventListener('change', setValuePrice);
 };
 
-const sliderPriceUpdate = (callback) => {
+const refreshSliderPrice = (callback) => {
   sliderPrice.noUiSlider.on('update', () => {
     valuePrice.value = sliderPrice.noUiSlider.get();
     callback();
@@ -44,6 +44,6 @@ const resetSlider = () => {
 
 export {
   createSlider,
-  sliderPriceUpdate,
+  refreshSliderPrice,
   resetSlider,
 };

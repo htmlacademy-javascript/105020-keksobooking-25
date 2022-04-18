@@ -1,7 +1,7 @@
 import {
   getOfferPriceTemplate,
   getOfferType,
-  getOfferСapacity,
+  getOfferCapacity,
   getOfferTime,
   getOfferFeatures,
   getOfferPhotos,
@@ -10,7 +10,7 @@ import {
 
 const cardTemplate = document.querySelector('#card').content.querySelector('.popup');
 
-const adsGeneration = (point) => {
+const generateAds = (point) => {
   const offer = point.offer;
   const avatar = point.author.avatar;
   const {title, address, price, type, rooms, guests, checkin, checkout, features, description, photos} = offer;
@@ -24,12 +24,12 @@ const adsGeneration = (point) => {
   selectOffer(select('.popup__type'), 'textContentTask', type, getOfferType);
   selectOffer(select('.popup__avatar'), 'src', avatar);
   selectOffer(select('.popup__photos'), 'photos', photos, getOfferPhotos);
-  selectOffer(select('.popup__text--capacity'), 'twoElemInnerHTML', [rooms, guests], getOfferСapacity);
+  selectOffer(select('.popup__text--capacity'), 'twoElemInnerHTML', [rooms, guests], getOfferCapacity);
   selectOffer(select('.popup__text--time'), 'twoElemTextContent', [checkin, checkout], getOfferTime);
   selectOffer(select('.popup__features'), 'features', features, getOfferFeatures, selectAll('.popup__feature'));
   return cardElement;
 };
 
 export {
-  adsGeneration,
+  generateAds,
 };

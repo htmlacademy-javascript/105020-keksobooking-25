@@ -86,7 +86,7 @@ const getDeclinationGuests = (guests) => {
   return result;
 };
 
-const getOfferСapacity = (rooms, guests) => {
+const getOfferCapacity = (rooms, guests) => {
   let result;
   switch (true) {
     case (!rooms):
@@ -258,7 +258,7 @@ export {
   getRandomPositiveInteger,
   getOfferPriceTemplate,
   getOfferType,
-  getOfferСapacity,
+  getOfferCapacity,
   getOfferTime,
   getOfferFeatures,
   getOfferPhotos,

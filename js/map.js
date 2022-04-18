@@ -12,7 +12,7 @@ import {
 } from './util.js';
 
 import {
-  adsGeneration,
+  generateAds,
 } from './ads-generation.js';
 
 import {
@@ -140,7 +140,7 @@ function onMapCreateMarker (point) {
 
   marker
     .addTo(markerGroup)
-    .bindPopup(adsGeneration(point));
+    .bindPopup(generateAds(point));
 }
 
 function clearAddMarkersMap () {
