@@ -16,6 +16,10 @@ const ImageOptions = {
   },
 };
 
+const
+  avatar = document.querySelector('.ad-form-header__preview'),
+  photo = document.querySelector('.ad-form__photo');
+
 const checkImage = (selector, previewImg,) => {
   const fileChooser = document.querySelector(selector);
   const preview = document.querySelector(previewImg);
@@ -54,7 +58,6 @@ const checkImage = (selector, previewImg,) => {
 
 const resetDivPreview = () => {
   const {AVATAR} = ImageOptions;
-  const avatar = document.querySelector('.ad-form-header__preview');
   const img = document.createElement('img');
   img.src = AVATAR.src;
   img.width = AVATAR.width;
@@ -62,8 +65,6 @@ const resetDivPreview = () => {
   img.alt = AVATAR.alt;
   avatar.innerHTML = '';
   avatar.appendChild(img);
-
-  const photo = document.querySelector('.ad-form__photo');
   photo.innerHTML = '';
 };
 
